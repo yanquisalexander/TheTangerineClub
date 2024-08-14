@@ -7,7 +7,10 @@ interface Props {
 const { music } = Astro.props;
 ---
 
-<div class="box-container" style="--size: 300px;">
+<div
+    class="box-container"
+    style={`--size: 300px; view-transition-name: "cover-${music.id}"`}
+>
     <div class="cover-container">
         <header
             class="absolute top-0 z-[55] w-full text-center bg-gradient-to-b from-black to-transparent text-white p-4"
