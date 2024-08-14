@@ -10,11 +10,16 @@ const { music } = Astro.props;
 <div class="box-container" style="--size: 300px;">
     <div class="cover-container">
         <header
-            class="absolute bottom-0 z-[55] w-full text-center bg-gradient-to-t from-black to-transparent text-white p-4"
+            class="absolute top-0 z-[55] w-full text-center bg-gradient-to-b from-black to-transparent text-white p-4"
         >
             <h1 class="text-xl font-medium">{music.title}</h1>
         </header>
         <img src={`/images/music-covers/${music.id}.webp`} alt={music.title} />
+        <div
+            id="waveform"
+            class="absolute bottom-0 w-full h-16 z-30 cursor-pointer"
+        >
+        </div>
     </div>
     <div class="vynil"></div>
 </div>
@@ -42,6 +47,12 @@ const { music } = Astro.props;
         box-shadow:
             0 0 10px 2px #000c,
             0 0 35px #0008;
+
+        @media (width <= 900px) {
+            --size: 100%;
+            width: 100%;
+            translate: 25% 0;
+        }
     }
 
     .vynil {
@@ -60,8 +71,17 @@ const { music } = Astro.props;
         &.paused {
             animation-play-state: paused;
             translate: 0 0;
-            .cover-container:has(+ &) {
-                transform: translate(0);
+        }
+
+        @media (width <= 900px) {
+            display: none;
+        }
+
+        @media (width >= 900px) {
+            &.paused {
+                .cover-container:has(+ &) {
+                    transform: translate(0);
+                }
             }
         }
     }
@@ -76,10 +96,10 @@ const { music } = Astro.props;
 <script>
     import { $ } from "@/lib/dom-selector";
     import type { Music } from "@/types/Music";
+    import WaveSurfer from "wavesurfer.js";
 
     document.addEventListener("astro:page-load", () => {
         let music: Music | null = null;
-        let audio: HTMLAudioElement | null = null;
 
         const $musicData = $("#music-data");
         const $vynil = $(".vynil");
@@ -90,18 +110,41 @@ const { music } = Astro.props;
         }
 
         if (music && $vynil) {
-            audio = new Audio(`/music/${music.id}.mp3`);
-            audio.play();
+            const wavesurfer = WaveSurfer.create({
+                container: "#waveform",
+                waveColor: "#000",
+                progressColor: "#fff",
+                cursorColor: "transparent",
+                barWidth: 3,
+                barRadius: 8,
+                barHeight: 1,
+                height: 56,
+                normalize: true,
+                backend: "MediaElement",
+                mediaControls: true,
+                fillParent: true,
+                hideScrollbar: true,
+                url: `/music/${music.id}.mp3`,
+            });
+
+            wavesurfer.on("ready", () => {
+                wavesurfer.play().catch(() => {
+                    const clickListener = () => {
+                        wavesurfer.play();
+                        $vynil.classList.remove("paused");
+                        document.removeEventListener("click", clickListener);
+                    };
+                    document.addEventListener("click", clickListener);
+                });
+            });
 
             $cover?.addEventListener("click", () => {
-                if (audio) {
-                    if (audio.paused) {
-                        audio.play();
-                        $vynil.classList.remove("paused");
-                    } else {
-                        audio.pause();
-                        $vynil.classList.add("paused");
-                    }
+                if (wavesurfer.isPlaying()) {
+                    wavesurfer.pause();
+                    $vynil.classList.add("paused");
+                } else {
+                    wavesurfer.play();
+                    $vynil.classList.remove("paused");
                 }
             });
         }

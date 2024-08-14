@@ -53,6 +53,9 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
+      wavesurfer.js:
+        specifier: ^7.8.3
+        version: 7.8.3
 
 packages:
 
@@ -2480,6 +2483,9 @@ packages:
 
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
+
+  wavesurfer.js@7.8.3:
+    resolution: {integrity: sha512-aYOmoBqEwjlqiqcKBYCzmWQxssOnEUd2VlVxfQkWfQD1pH3VJ5Prqn4kfIGxYyokgYiEj/G5Qwrh48ot/pRCuA==}
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
@@ -5291,6 +5297,8 @@ snapshots:
   vscode-uri@2.1.2: {}
 
   vscode-uri@3.0.8: {}
+
+  wavesurfer.js@7.8.3: {}
 
   web-namespaces@2.0.1: {}
 
