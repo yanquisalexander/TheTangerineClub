@@ -1,9 +1,43 @@
 ---
+import { MUSICS } from "@/consts/Music";
 import SectionTitle from "@components/SectionTitle.astro";
 ---
 
-<section id="original-music" class="mt-32">
+<section
+    id="original-music"
+    class="mt-32 max-w-5xl flex flex-col justify-center items-center mx-auto"
+>
     <header class="text-center">
         <SectionTitle title="Original Music 🍊" />
+        <p class="text-lg text-gray-200 max-w-3xl mx-auto mt-20 px-2">
+            We are so excited to share our music with you! 🎶
+        </p>
     </header>
+
+    <div
+        class="snap-x snap-mandatory h-32 flex items-center justify-center mt-8 gap-8 overflow-x-auto w-full"
+    >
+        {
+            MUSICS.map((music) => (
+                <a
+                    href={`/music/${music.id}`}
+                    class="group size-32"
+                    style={`view-transition-name: cover-${music.id}`}
+                >
+                    <article class="group relative w-full h-full">
+                        <img
+                            class="w-full h-full object-cover rounded-lg absolute inset-0"
+                            src={`/images/music-covers/${music.id}.webp`}
+                            alt={music.title}
+                        />
+                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <h1 class="text-white text-2xl font-medium text-center mt-4">
+                                {music.title}
+                            </h1>
+                        </div>
+                    </article>
+                </a>
+            ))
+        }
+    </div>
 </section>
