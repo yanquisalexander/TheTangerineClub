@@ -4,35 +4,31 @@ import SiteFooter from "@/components/SiteFooter.astro";
 import NoiseBackground from "@/components/NoiseBackground.astro";
 import "@fontsource-variable/manrope";
 import { ViewTransitions } from "astro:transitions";
+import SEO from "@/components/SEO.astro";
+import type { Preload } from "@/types/Preload";
 
 interface Props {
 	title: string;
-	description?: string;
+	description: string;
+	preload?: Array<Preload>;
+	canonical?: string;
+	image?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, preload, canonical, image } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<ViewTransitions />
-		<meta charset="UTF-8" />
-		{description && <meta name="description" content={description} />}
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="manifest" href="/site.webmanifest" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="og:site_name" content="#TeamVAMOO" />
-		<meta name="og:type" content="website" />
-		<meta name="og:title" content={title} />
-		<meta name="og:description" content={description} />
-		<meta name="og:image" content="/images/team-vamoo.webp" />
-		<meta
-			name="google-site-verification"
-			content="oqyB3KMZv8yNVl3KoSyWqYSMnKcMRc5vKxB-bgY3Phw"
+		<SEO
+			canonical={canonical}
+			description={description}
+			image={image}
+			preload={preload}
+			title={title}
 		/>
-		<title>{title}</title>
 	</head>
 	<body>
 		<SiteHeader />
