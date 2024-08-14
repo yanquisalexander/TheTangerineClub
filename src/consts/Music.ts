@@ -6,41 +6,6 @@ export const MUSICS: Music[] = [
         title: 'Flowers of September',
         releaseDate: new Date(2020, 2, 1).toISOString(),
         hasLyrics: true,
-    }, {
-        id: 'flowers-of-september',
-        title: 'Flowers of September',
-        releaseDate: new Date(2020, 2, 1).toISOString(),
-        hasLyrics: true,
-    }, {
-        id: 'flowers-of-september',
-        title: 'Flowers of September',
-        releaseDate: new Date(2020, 2, 1).toISOString(),
-        hasLyrics: true,
-    }, {
-        id: 'flowers-of-september',
-        title: 'Flowers of September',
-        releaseDate: new Date(2020, 2, 1).toISOString(),
-        hasLyrics: true,
-    }, {
-        id: 'flowers-of-september',
-        title: 'Flowers of September',
-        releaseDate: new Date(2020, 2, 1).toISOString(),
-        hasLyrics: true,
-    }, {
-        id: 'flowers-of-september',
-        title: 'Flowers of September',
-        releaseDate: new Date(2020, 2, 1).toISOString(),
-        hasLyrics: true,
-    }, {
-        id: 'flowers-of-september',
-        title: 'Flowers of September',
-        releaseDate: new Date(2020, 2, 1).toISOString(),
-        hasLyrics: true,
-    }, {
-        id: 'flowers-of-september',
-        title: 'Flowers of September',
-        releaseDate: new Date(2020, 2, 1).toISOString(),
-        hasLyrics: true,
     },
     {
         id: 'disarm',
