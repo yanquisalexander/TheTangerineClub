@@ -1,0 +1,109 @@
+---
+import type { Music } from "@/types/Music";
+interface Props {
+    music: Music;
+}
+
+const { music } = Astro.props;
+---
+
+<div class="box-container" style="--size: 300px;">
+    <div class="cover-container">
+        <header
+            class="absolute bottom-0 z-[55] w-full text-center bg-gradient-to-t from-black to-transparent text-white p-4"
+        >
+            <h1 class="text-xl font-medium">{music.title}</h1>
+        </header>
+        <img src={`/images/music-covers/${music.id}.webp`} alt={music.title} />
+    </div>
+    <div class="vynil"></div>
+</div>
+
+<style>
+    .box-container {
+        position: relative;
+        margin-top: 4rem;
+    }
+
+    .cover-container {
+        display: grid;
+        align-items: end;
+        max-width: 512px;
+        max-height: calc(512px + var(--offset));
+        width: var(--size);
+        height: calc(var(--size) + var(--offset));
+        position: relative;
+        overflow: hidden;
+        border: 3px solid #000;
+        background-color: #000;
+        border-radius: 8px;
+        transform: translate(-25%);
+        transition: transform 1s;
+        box-shadow:
+            0 0 10px 2px #000c,
+            0 0 35px #0008;
+    }
+
+    .vynil {
+        width: var(--size, 200px);
+        height: var(--size, 200px);
+        position: absolute;
+        top: 0;
+        background: url("/images/vynil.webp") no-repeat;
+        background-size: cover;
+        transform: rotate(0deg);
+        z-index: -1;
+        animation: spin 3s linear infinite 1s;
+        transition: translate 1s;
+        translate: 30% 0;
+
+        &.paused {
+            animation-play-state: paused;
+            translate: 0 0;
+            .cover-container:has(+ &) {
+                transform: translate(0);
+            }
+        }
+    }
+
+    @keyframes spin {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+</style>
+
+<script>
+    import { $ } from "@/lib/dom-selector";
+    import type { Music } from "@/types/Music";
+
+    document.addEventListener("astro:page-load", () => {
+        let music: Music | null = null;
+        let audio: HTMLAudioElement | null = null;
+
+        const $musicData = $("#music-data");
+        const $vynil = $(".vynil");
+        const $cover = $(".cover-container");
+
+        if ($musicData) {
+            music = JSON.parse($musicData.innerHTML);
+        }
+
+        if (music && $vynil) {
+            audio = new Audio(`/music/${music.id}.mp3`);
+            audio.play();
+
+            $cover?.addEventListener("click", () => {
+                if (audio) {
+                    if (audio.paused) {
+                        audio.play();
+                        $vynil.classList.remove("paused");
+                    } else {
+                        audio.pause();
+                        $vynil.classList.add("paused");
+                    }
+                }
+            });
+        }
+    });
+</script>

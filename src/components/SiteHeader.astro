@@ -1,0 +1,140 @@
+---
+const links = [
+    {
+        label: "About",
+        url: "/about",
+    },
+    {
+        label: "Our Music",
+        url: "/music",
+    },
+    {
+        label: "Gallery",
+        url: "/gallery",
+    },
+    {
+        label: "Contact",
+        url: "/contact",
+    },
+];
+
+const activeClasses = ["bg-white/20", "hover:bg-opacity-10"];
+
+const currentPath = Astro.url.pathname;
+
+// Divide en dos arrays: enlaces pares e impares
+const evenLinks = links.filter((_, index) => index % 2 === 0);
+const oddLinks = links.filter((_, index) => index % 2 !== 0);
+---
+
+<header
+    class="z-[1001] header-animate sticky inset-x-0 flex items-center justify-between px-5 py-4 transition-all duration-300 md:px-10"
+>
+    <div class="flex items-center justify-between w-full">
+        <!-- Enlaces pares a la izquierda -->
+        <div class="items-center space-x-5 hidden md:flex">
+            {
+                evenLinks.map((link) => (
+                    <a
+                        href={link.url}
+                        class:list={[
+                            "text-white",
+                            "transition-all",
+                            "duration-300",
+                            "py-2",
+                            "px-3",
+                            "hover:bg-white/20",
+                            "hover:bg-opacity-10",
+                            currentPath === link.url ? activeClasses : null,
+                        ]}
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+        </div>
+
+        <!-- Logo al centro -->
+        <div class="flex items-center md:justify-center flex-1">
+            <a
+                id="home-button"
+                href="/"
+                class="h-20 object-cover flex items-center md:justify-center group"
+            >
+                <img
+                    src="/images/ttcLogo.webp"
+                    alt="TheTangerineClub logo"
+                    height="440"
+                    width="355"
+                    class="h-full w-auto transform group-hover:drop-shadow-[0_10px_20px_rgba(221,_107,_32,_0.7)] transition group-hover:scale-105"
+                />
+            </a>
+        </div>
+
+        <!-- Enlaces impares a la derecha -->
+        <div class="items-center space-x-5 hidden md:flex">
+            {
+                oddLinks.map((link) => (
+                    <a
+                        href={link.url}
+                        class:list={[
+                            "text-white",
+                            "transition-all",
+                            "duration-300",
+                            "py-2",
+                            "px-3",
+                            "hover:bg-white/20",
+                            "hover:bg-opacity-10",
+                            currentPath === link.url ? activeClasses : null,
+                        ]}
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+
+    <style>
+        .header-animate {
+            top: 0;
+            left: 0;
+            right: 0;
+            animation: reduce-header linear both;
+            animation-timeline: scroll();
+            animation-range: 0 150px;
+        }
+
+        @keyframes reduce-header {
+            to {
+                box-shadow:
+                    0 5px 50px -5px hsla(0, 0%, 100%, 0.1),
+                    0 0 0 1px hsla(0, 0%, 100%, 0.1);
+                @apply py-0;
+                @apply backdrop-blur-[10px];
+                background-color: rgba(24, 24, 24, 0.349);
+            }
+        }
+    </style>
+
+    <script>
+        import { $, $$ } from "@/lib/dom-selector";
+
+        document.addEventListener("astro:page-load", () => {
+            const $homeButton = $("#home-button");
+            const $header = $("header");
+
+            if ($homeButton) {
+                $homeButton.addEventListener("click", (event) => {
+                    if (location.pathname === "/") {
+                        event.preventDefault();
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</header>

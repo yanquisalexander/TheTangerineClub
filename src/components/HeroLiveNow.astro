@@ -1,0 +1,72 @@
+---
+interface Props {
+    streamer: string;
+}
+
+const { streamer } = Astro.props;
+
+const hostname = new URL(Astro.url).hostname;
+---
+
+<article class="z-50 mt-16">
+    <div
+        class="w-full md:h-96 lg:h-[30rem] h-48 sm:h-64 aspect-video bg-black border-2 border-white rounded-lg overflow-hidden relative"
+    >
+        <h2
+            id="live-now"
+            class="absolute bottom-0 inset-x-0 transition-transform duration-1000 bg-black bg-opacity-80 text-white text-center py-2"
+        >
+            ¡We are live now! 🔴
+        </h2>
+
+        <a
+            href={`https://twitch.tv/${streamer}`}
+            target="_blank"
+            class="absolute top-0 left-0 bg-white text-purple-500 rounded-br-lg px-2 py-1 z-20"
+        >
+            <svg
+                class="inline-block"
+                x="0"
+                y="0"
+                viewBox="0 0 2400 2800"
+                height="24"
+                width="28"
+                xml-space="preserve"
+            >
+                <path
+                    fill="#fff"
+                    d="M2200 1300l-400 400h-400l-350 350v-350H600V200h1600z"
+                ></path>
+                <g>
+                    <path
+                        fill="#9146ff"
+                        d="M500 0L0 500v1800h600v500l500-500h400l900-900V0H500zm1700 1300l-400 400h-400l-350 350v-350H600V200h1600v1100z"
+                    ></path>
+                    <path
+                        fill="#9146ff"
+                        d="M1700 550h200v600h-200zM1150 550h200v600h-200z"
+                    ></path>
+                </g>
+            </svg>
+            {streamer}
+        </a>
+        <iframe
+            src={`https://player.twitch.tv/?channel=${streamer}&parent=${hostname}`}
+            frameborder="0"
+            allowfullscreen
+            scrolling="no"
+            class="w-full h-full"></iframe>
+    </div>
+</article>
+
+<script>
+    import { $ } from "@/lib/dom-selector";
+
+    document.addEventListener("astro:page-load", () => {
+        const $liveNow = $("#live-now");
+
+        setTimeout(() => {
+            $liveNow?.classList.add("transform", "translate-y-full");
+        }, 5000);
+    });
+</script>

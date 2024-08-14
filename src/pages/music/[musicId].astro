@@ -1,0 +1,48 @@
+---
+import { MUSICS } from "@/consts/Music";
+import Layout from "@/layouts/Layout.astro";
+import MusicVynil from "@components/MusicVynil.astro";
+
+const { musicId } = Astro.params;
+
+const music = MUSICS.find((music) => music.id === musicId);
+
+if (!music) {
+    return new Response("Music not found", { status: 404 });
+}
+---
+
+<Layout title={`${music.title} - The Tangerine Club`}>
+    <section class="flex flex-col mt-16 items-center justify-center">
+        <div class="max-w-4xl mx-auto px-5">
+            <script
+                is:inline
+                set:html={JSON.stringify(music)}
+                id="music-data"
+            />
+            <h1 class="text-2xl font-semibold text-center">{music.title}</h1>
+            <p class="text-sm text-gray-500 text-center">
+                Release date:
+                <date></date>
+            </p>
+            <div class="flex w-full">
+                <MusicVynil music={music} />
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    import { $ } from "@/lib/dom-selector";
+
+    document.addEventListener("astro:page-load", () => {
+        const $musicData = $("#music-data");
+        const $releaseDate = $("date");
+        if ($musicData) {
+            const music = JSON.parse($musicData.innerHTML);
+            const releaseDate = new Date(music.releaseDate);
+            if ($releaseDate)
+                $releaseDate.innerText = releaseDate.toLocaleDateString();
+        }
+    });
+</script>

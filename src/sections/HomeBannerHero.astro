@@ -1,0 +1,48 @@
+---
+import HeroLiveNow from "@components/HeroLiveNow.astro";
+
+const CONFIG = {
+    MIDU_API_UPTIME_WORKER: "https://midudev-apis.midudev.workers.dev/uptime",
+};
+
+const streamer = "MialyMusic";
+
+let isStreamerOnline = false;
+const response = await fetch(`${CONFIG.MIDU_API_UPTIME_WORKER}/${streamer}`);
+
+if (response.ok) {
+    const { online } = await response.json();
+    isStreamerOnline = online;
+}
+---
+
+<section
+    id="hero-welcome"
+    class="-mt-28 relative min-h-screen flex items-center"
+>
+    <img
+        id="backdrop-image"
+        src="/images/banner.webp"
+        alt="The Tangerine Club"
+        class="absolute inset-0 object-cover w-full h-full"
+    />
+
+    <header
+        class="relative z-10 flex flex-col items-center justify-center h-full text-center max-w-4xl mx-auto px-5"
+    >
+        {isStreamerOnline ? <HeroLiveNow streamer={streamer} /> : null}
+
+        <h1 class="text-2xl font-medium">The Tangerine Club</h1>
+    </header>
+</section>
+
+<style>
+    #backdrop-image {
+        mask-image: linear-gradient(
+            black 1%,
+            rgba(0, 0, 0, 0.5) 20%,
+            rgba(0, 0, 0, 0.1) 60%,
+            transparent
+        );
+    }
+</style>
