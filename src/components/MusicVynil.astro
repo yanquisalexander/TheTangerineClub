@@ -7,9 +7,11 @@ interface Props {
 const { music } = Astro.props;
 ---
 
+<div class="volume-indicator" hidden></div>
+
 <div
     class="box-container"
-    style={`--size: 300px; view-transition-name: cover-${music.id}`}
+    style={`--size: 300px; view-transition-name: cover-${music.id}; --volume: 100%;`}
 >
     <div class="cover-container">
         <header
@@ -98,6 +100,27 @@ const { music } = Astro.props;
             transform: rotate(1turn);
         }
     }
+
+    .volume-indicator {
+        width: 350px;
+        height: 50px;
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        z-index: 999;
+        &:after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            clip-path: inset(0 calc(100% - var(--volume)) 0 0);
+            background: repeating-linear-gradient(
+                to right,
+                #fa9510 0 5%,
+                transparent 5% 10%
+            );
+        }
+    }
 </style>
 
 <script>
@@ -105,14 +128,18 @@ const { music } = Astro.props;
     import type { Music } from "@/types/Music";
     import WaveSurfer from "wavesurfer.js";
 
+    const INCREMENT_STEP = 5;
+
     document.addEventListener("astro:page-load", () => {
         let music: Music | null = null;
+        let volumeIndicatorTimer: number | null = null;
 
         const $musicData = $("#music-data");
         const $vynil = $(".vynil");
         const $cover = $(".cover-container");
         const $coverImage = $(".cover-container img");
         const $lyricsContainer = $("#lyrics-container");
+        const $volumeIndicator = $(".volume-indicator");
 
         if ($musicData) {
             music = JSON.parse($musicData.innerHTML);
@@ -209,6 +236,31 @@ const { music } = Astro.props;
                     wavesurfer.play();
                     $vynil.classList.remove("paused");
                 }
+            });
+
+            $cover?.addEventListener("wheel", (e) => {
+                $cover.addEventListener("wheel", (ev) => {
+                    ev.preventDefault();
+                    const increment =
+                        ev.deltaY > 0 ? -INCREMENT_STEP : INCREMENT_STEP;
+                    const currentVolume = wavesurfer.getVolume() * 100;
+                    const newVolume = Math.round(
+                        Math.min(Math.max(0, currentVolume + increment), 100),
+                    );
+                    $volumeIndicator && ($volumeIndicator.hidden = false);
+                    clearTimeout(volumeIndicatorTimer as number | undefined);
+                    volumeIndicatorTimer = setTimeout(
+                        () =>
+                            $volumeIndicator &&
+                            ($volumeIndicator.hidden = true),
+                        2500,
+                    );
+                    document.body.style.setProperty(
+                        "--volume",
+                        newVolume + "%",
+                    );
+                    wavesurfer.setVolume(newVolume / 100);
+                });
             });
         }
     });

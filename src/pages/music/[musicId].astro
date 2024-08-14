@@ -26,7 +26,7 @@ if (!music) {
                 <date></date>
             </p>
             <div
-                class="flex flex-col lg:flex-row items-start justify-center mt-16"
+                class="flex flex-col mdx:flex-row items-start justify-center mt-16"
             >
                 <MusicVynil music={music} />
 
@@ -36,7 +36,10 @@ if (!music) {
                             <h2 class="text-2xl font-semibold text-center">
                                 Lyrics
                             </h2>
-                            <div id="lyrics-container" class="mt-4" />
+                            <div
+                                id="lyrics-container"
+                                class="mt-4 select-none"
+                            />
                         </section>
                     )
                 }
