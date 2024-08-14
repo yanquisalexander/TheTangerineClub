@@ -19,12 +19,14 @@ const {
     image = "https://thetangerineclub.net/images/og-image.png",
 } = Astro.props as Props;
 
-const determineCanonicalURL = () => {
+/* const determineCanonicalURL = () => {
     if (Astro.url.host.includes("localhost")) return "http://localhost:4321";
     return canonical || Astro.url.pathname;
 };
 
-const canonicalURL = new URL(determineCanonicalURL(), Astro.site);
+let canonicalURL: URL;
+
+const canonicalURL = new URL(determineCanonicalURL(), Astro.site); */
 ---
 
 <title>{title}</title>
@@ -55,7 +57,8 @@ const canonicalURL = new URL(determineCanonicalURL(), Astro.site);
     ))
 }
 
-<link rel="canonical" href={canonicalURL} />
+<!-- <link rel="canonical" href={canonicalURL} />
+ -->
 <meta name="viewport" content="width=device-width" />
 <meta name="theme-color" content="#000000" />
 
