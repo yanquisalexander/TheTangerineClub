@@ -112,6 +112,7 @@ const { music } = Astro.props;
         const $vynil = $(".vynil");
         const $cover = $(".cover-container");
         const $coverImage = $(".cover-container img");
+        const $lyricsContainer = $("#lyrics-container");
 
         if ($musicData) {
             music = JSON.parse($musicData.innerHTML);
@@ -177,6 +178,18 @@ const { music } = Astro.props;
                     };
                     document.addEventListener("click", clickListener);
                 });
+
+                $lyricsContainer
+                    ?.querySelectorAll("p")
+                    .forEach(($lyricParagraph) => {
+                        $lyricParagraph.addEventListener("click", () => {
+                            const startTime =
+                                parseFloat(
+                                    $lyricParagraph.dataset.startTime || "0",
+                                ) / 1000;
+                            wavesurfer.setTime(startTime);
+                        });
+                    });
             });
 
             wavesurfer.on("finish", () => {
