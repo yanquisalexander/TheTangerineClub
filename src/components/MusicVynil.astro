@@ -169,7 +169,6 @@ const { music } = Astro.props;
                 wavesurfer.play().catch(() => {
                     const clickListener = () => {
                         wavesurfer.play();
-                        $vynil.classList.remove("paused");
                         document.removeEventListener("click", clickListener);
                     };
                     document.addEventListener("click", clickListener);
@@ -184,8 +183,19 @@ const { music } = Astro.props;
                                     $lyricParagraph.dataset.startTime || "0",
                                 ) / 1000;
                             wavesurfer.setTime(startTime);
+                            if (!wavesurfer.isPlaying()) {
+                                wavesurfer.play();
+                            }
                         });
                     });
+            });
+
+            wavesurfer.on("play", () => {
+                $vynil.classList.remove("paused");
+            });
+
+            wavesurfer.on("pause", () => {
+                $vynil.classList.add("paused");
             });
 
             wavesurfer.on("finish", () => {
@@ -250,10 +260,8 @@ const { music } = Astro.props;
                 if (e.target !== $coverImage) return;
                 if (wavesurfer.isPlaying()) {
                     wavesurfer.pause();
-                    $vynil.classList.add("paused");
                 } else {
                     wavesurfer.play();
-                    $vynil.classList.remove("paused");
                 }
             });
 
