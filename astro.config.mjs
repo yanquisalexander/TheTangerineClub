@@ -7,7 +7,9 @@ import auth from "auth-astro";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react(), auth()],
+  integrations: [tailwind(), react(),
+    //auth()
+  ],
   output: "server",
   adapter: vercel()
 });
