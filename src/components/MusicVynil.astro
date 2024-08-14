@@ -17,7 +17,6 @@ const { music } = Astro.props;
         <header
             class="absolute top-0 z-[55] w-full text-center bg-gradient-to-b from-black to-transparent text-white p-4"
         >
-            <h1 class="text-lg mt-2 font-medium">{music.title}</h1>
         </header>
         <img
             class="cursor-pointer"
@@ -144,39 +143,6 @@ const { music } = Astro.props;
             music = JSON.parse($musicData.innerHTML);
         }
 
-        const onProgress = (currentTime: number) => {
-            const $lyricsContainer = $("#lyrics-container");
-            if (!$lyricsContainer) {
-                console.error("Lyrics container not found");
-                return;
-            }
-
-            const $lyricParagraphs = $lyricsContainer.querySelectorAll("p");
-            $lyricParagraphs.forEach(($lyricParagraph) => {
-                const startTime =
-                    parseFloat($lyricParagraph.dataset.startTime || "0") / 1000;
-                const endTime =
-                    parseFloat($lyricParagraph.dataset.endTime || "0") / 1000;
-
-                // Keep all passed lyrics visible, and the current one highlighted
-                if (currentTime > endTime) {
-                    $lyricParagraph.classList.remove("opacity-50");
-                }
-
-                if (currentTime < startTime) {
-                    $lyricParagraph.classList.add("opacity-50");
-                    $lyricParagraph.classList.remove("scale-110", "font-bold");
-                }
-
-                if (currentTime >= startTime && currentTime <= endTime) {
-                    $lyricParagraph.classList.remove("opacity-50");
-                    $lyricParagraph.classList.add("scale-110", "font-bold");
-                } else {
-                    $lyricParagraph.classList.remove("scale-110", "font-bold");
-                }
-            });
-        };
-
         if (music && $vynil) {
             const wavesurfer = WaveSurfer.create({
                 container: "#waveform",
@@ -193,6 +159,10 @@ const { music } = Astro.props;
                 fillParent: true,
                 hideScrollbar: true,
                 url: `/music/${music.id}.mp3`,
+            });
+
+            wavesurfer.on("error", (error) => {
+                console.error(error);
             });
 
             wavesurfer.on("ready", () => {
@@ -223,7 +193,57 @@ const { music } = Astro.props;
                 $vynil.classList.add("paused");
             });
 
-            wavesurfer.on("timeupdate", onProgress);
+            if (music.hasLyrics) {
+                const onProgress = (currentTime: number) => {
+                    const $lyricsContainer = $("#lyrics-container");
+                    if (!$lyricsContainer) {
+                        console.error("Lyrics container not found");
+                        return;
+                    }
+
+                    const $lyricParagraphs =
+                        $lyricsContainer.querySelectorAll("p");
+                    $lyricParagraphs.forEach(($lyricParagraph) => {
+                        const startTime =
+                            parseFloat(
+                                $lyricParagraph.dataset.startTime || "0",
+                            ) / 1000;
+                        const endTime =
+                            parseFloat($lyricParagraph.dataset.endTime || "0") /
+                            1000;
+
+                        // Keep all passed lyrics visible, and the current one highlighted
+                        if (currentTime > endTime) {
+                            $lyricParagraph.classList.remove("opacity-50");
+                        }
+
+                        if (currentTime < startTime) {
+                            $lyricParagraph.classList.add("opacity-50");
+                            $lyricParagraph.classList.remove(
+                                "scale-110",
+                                "font-bold",
+                            );
+                        }
+
+                        if (
+                            currentTime >= startTime &&
+                            currentTime <= endTime
+                        ) {
+                            $lyricParagraph.classList.remove("opacity-50");
+                            $lyricParagraph.classList.add(
+                                "scale-110",
+                                "font-bold",
+                            );
+                        } else {
+                            $lyricParagraph.classList.remove(
+                                "scale-110",
+                                "font-bold",
+                            );
+                        }
+                    });
+                };
+                wavesurfer.on("timeupdate", onProgress);
+            }
 
             $cover?.addEventListener("click", (e) => {
                 e.stopPropagation();
