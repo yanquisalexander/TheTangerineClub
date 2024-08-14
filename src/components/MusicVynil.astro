@@ -14,10 +14,14 @@ const { music } = Astro.props;
         >
             <h1 class="text-xl font-medium">{music.title}</h1>
         </header>
-        <img src={`/images/music-covers/${music.id}.webp`} alt={music.title} />
+        <img
+            class="cursor-pointer"
+            src={`/images/music-covers/${music.id}.webp`}
+            alt={music.title}
+        />
         <div
             id="waveform"
-            class="absolute bottom-0 w-full h-16 z-30 cursor-pointer"
+            class="absolute bottom-0 w-full h-16 z-[1001] cursor-pointer"
         >
         </div>
     </div>
@@ -104,6 +108,7 @@ const { music } = Astro.props;
         const $musicData = $("#music-data");
         const $vynil = $(".vynil");
         const $cover = $(".cover-container");
+        const $coverImage = $(".cover-container img");
 
         if ($musicData) {
             music = JSON.parse($musicData.innerHTML);
@@ -113,15 +118,15 @@ const { music } = Astro.props;
             const wavesurfer = WaveSurfer.create({
                 container: "#waveform",
                 waveColor: "#000",
-                progressColor: "#fff",
-                cursorColor: "transparent",
+                progressColor: "orange",
                 barWidth: 3,
+                cursorColor: "orange",
+                cursorWidth: 2,
                 barRadius: 8,
                 barHeight: 1,
-                height: 56,
-                normalize: true,
+                height: 48,
+
                 backend: "MediaElement",
-                mediaControls: true,
                 fillParent: true,
                 hideScrollbar: true,
                 url: `/music/${music.id}.mp3`,
@@ -138,7 +143,14 @@ const { music } = Astro.props;
                 });
             });
 
-            $cover?.addEventListener("click", () => {
+            wavesurfer.on("finish", () => {
+                wavesurfer.stop();
+                $vynil.classList.add("paused");
+            });
+
+            $cover?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (e.target !== $coverImage) return;
                 if (wavesurfer.isPlaying()) {
                     wavesurfer.pause();
                     $vynil.classList.add("paused");
