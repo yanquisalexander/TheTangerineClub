@@ -97,6 +97,69 @@ const oddLinks = links.filter((_, index) => index % 2 !== 0);
                 ))
             }
         </div>
+
+        <!-- Menú móvil -->
+        <div class="flex md:hidden">
+            <button
+                id="mobile-menu-button"
+                class="text-white focus:outline-none"
+            >
+                <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Opciones del menú móvil -->
+    <div
+        id="mobile-menu"
+        class="fixed inset-0 h-screen w-full z-[1000] bg-black bg-opacity-90 hidden md:hidden flex flex-col items-center justify-center"
+    >
+        <a
+            href="/"
+            class:list={[
+                "text-white",
+                "transition-all",
+                "duration-300",
+                "py-2",
+                "px-3",
+                "hover:bg-white/20",
+                "hover:bg-opacity-10",
+                currentPath === "/" ? activeClasses : null,
+            ]}
+        >
+            Home
+        </a>
+        {
+            links.map((link) => (
+                <a
+                    href={link.url}
+                    class:list={[
+                        "text-white",
+                        "transition-all",
+                        "duration-300",
+                        "py-2",
+                        "px-3",
+                        "hover:bg-white/20",
+                        "hover:bg-opacity-10",
+                        currentPath === link.url ? activeClasses : null,
+                    ]}
+                >
+                    {link.label}
+                </a>
+            ))
+        }
     </div>
 
     <style>
@@ -127,6 +190,9 @@ const oddLinks = links.filter((_, index) => index % 2 !== 0);
         document.addEventListener("astro:page-load", () => {
             const $homeButton = $("#home-button");
             const $header = $("header");
+            const $mobileMenuButton = $("#mobile-menu-button");
+            const $mobileMenu = $("#mobile-menu");
+            const $body = $("body");
 
             if ($homeButton) {
                 $homeButton.addEventListener("click", (event) => {
@@ -139,6 +205,15 @@ const oddLinks = links.filter((_, index) => index % 2 !== 0);
                     }
                 });
             }
+
+            $mobileMenuButton?.addEventListener("click", () => {
+                $mobileMenu?.classList.toggle("hidden");
+                if ($mobileMenu?.classList.contains("hidden")) {
+                    $body?.classList.remove("overflow-hidden");
+                } else {
+                    $body?.classList.add("overflow-hidden");
+                }
+            });
         });
     </script>
 </header>
