@@ -13,9 +13,10 @@ interface Props {
 	preload?: Array<Preload>;
 	canonical?: string;
 	image?: string;
+	schema?: object;
 }
 
-const { title, description, preload, canonical, image } = Astro.props;
+const { title, description, preload, canonical, image, schema } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,6 +29,7 @@ const { title, description, preload, canonical, image } = Astro.props;
 			image={image}
 			preload={preload}
 			title={title}
+			schema={schema}
 		/>
 	</head>
 	<body>

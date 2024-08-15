@@ -9,6 +9,7 @@ interface Props {
     preload?: Array<Preload>;
     canonical?: string;
     image?: string;
+    schema?: object;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
     preload,
     canonical,
     image = "https://thetangerineclub.net/images/og-image.png",
+    schema,
 } = Astro.props as Props;
 
 /* const determineCanonicalURL = () => {
@@ -50,6 +52,16 @@ const canonicalURL = new URL(determineCanonicalURL(), Astro.site); */
 />
 
 <link rel="preload" href={Manrope} as="font" type="font/woff2" crossorigin />
+
+{
+    schema && (
+        <script
+            is:inline
+            type="application/ld+json"
+            set:html={JSON.stringify(schema)}
+        />
+    )
+}
 
 {
     preload?.map(({ href, as, type, rel = "preload", crossorigin }) => (

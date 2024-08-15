@@ -10,11 +10,25 @@ const music = MUSICS.find((music) => music.id === musicId);
 if (!music) {
     return new Response("Music not found", { status: 404 });
 }
+
+const schema = {
+    "@context": "https://schema.org",
+    "@type": "MusicRecording",
+    byArtist: {
+        "@type": "MusicGroup",
+        name: "The Tangerine Club",
+    },
+    inAlbum: music.title,
+    name: music.title,
+    url: `https://thetangerineclub.com/originals/${music.id}`,
+    datePublished: music.releaseDate,
+};
 ---
 
 <Layout
     title={`${music.title} - The Tangerine Club`}
     description={`Listen to ${music.title} by The Tangerine Club`}
+    schema={schema}
 >
     <section class="flex flex-col mt-16 items-center justify-center">
         <div class="max-w-5xl w-full mx-auto px-5">
