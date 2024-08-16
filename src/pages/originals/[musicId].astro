@@ -1,11 +1,23 @@
 ---
+import type { GetStaticPaths } from "astro";
 import { MUSICS } from "@/consts/Music";
 import Layout from "@/layouts/Layout.astro";
 import MusicVynil from "@components/MusicVynil.astro";
 
-const { musicId } = Astro.params;
+export const getStaticPaths = () => {
+    const paths = MUSICS.map((music) => ({
+        params: {
+            musicId: music.id,
+        },
+    }));
 
+    return paths;
+};
+
+const { musicId } = Astro.params;
 const music = MUSICS.find((music) => music.id === musicId);
+
+export const prerender = true;
 
 if (!music) {
     return new Response("Music not found", { status: 404 });
