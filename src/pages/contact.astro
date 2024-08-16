@@ -1,0 +1,100 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SectionTitle from "@components/SectionTitle.astro";
+import { Toaster } from "@pheralb/toast";
+
+export const prerender = true;
+---
+
+<Layout
+    title="Contact - The Tangerine Club"
+    description="Contact The Tangerine Club for inquiries, collaborations, and more."
+>
+    <section class="flex flex-col items-center justify-center mt-16">
+        <div class="max-w-5xl w-full mx-auto px-5">
+            <header class="text-center">
+                <SectionTitle title="Contact" />
+                <p class="text-gray-300 mt-16">
+                    For inquiries, collaborations, and more, feel free to reach
+                    out to us.
+                </p>
+            </header>
+
+            <form
+                class="flex flex-col items-center justify-center mt-16 space-y-4"
+                action="https://api.web3forms.com/submit"
+                method="POST"
+            >
+                <input
+                    type="hidden"
+                    name="access_key"
+                    value="96111613-4927-4547-a23b-15dbc9c371e8"
+                />
+
+                <input
+                    type="text"
+                    name="name"
+                    class="bg-black/20 px-4 py-2 max-w-md w-full border border-white/20"
+                    placeholder="Your Name"
+                    required
+                />
+                <input
+                    type="email"
+                    name="email"
+                    class="bg-black/20 px-4 py-2 max-w-md w-full border border-white/20"
+                    placeholder="Your Email"
+                    required
+                />
+
+                <textarea
+                    name="message"
+                    class="bg-black/20 px-4 py-2 max-w-md w-full border border-white/20"
+                    placeholder="Your Message"
+                    required></textarea>
+
+                <button
+                    type="submit"
+                    class="bg-orange-500 text-white font-semibold px-4 py-2"
+                >
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+    <Toaster theme="dark" client:load />
+</Layout>
+
+<script>
+    import { $ } from "@/lib/dom-selector";
+    import { toast } from "@pheralb/toast";
+
+    document.addEventListener("astro:page-load", () => {
+        const form = $("form") as HTMLFormElement;
+        const messageContainer = document.createElement("div");
+        form.appendChild(messageContainer);
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData,
+            });
+
+            if (response.ok) {
+                form.reset();
+                toast.success({
+                    text: "Success",
+                    description: "Your message has been sent.",
+                });
+            } else {
+                const data = await response.json();
+                toast.error({
+                    text: "Error sending message",
+                    description: data.message,
+                });
+            }
+        });
+    });
+</script>

@@ -17,6 +17,7 @@
     "@auth/core": "^0.32.0",
     "@fontsource-variable/manrope": "^5.0.20",
     "@midudev/tailwind-animations": "^0.0.7",
+    "@pheralb/toast": "^0.2.3",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.13.3",
