@@ -1,0 +1,71 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getStoreProducts } from "@/utils/getStoreProducts";
+import SectionTitle from "@components/SectionTitle.astro";
+
+const products = await getStoreProducts();
+---
+
+<Layout
+    title="About - The Tangerine Club"
+    description="Check out how The Tangerine Club was born, our story, and our members."
+>
+    <section
+        class="flex flex-col items-center justify-center mt-16 relative overflow-clip"
+    >
+        <div class="max-w-5xl w-full mx-auto px-5">
+            <header class="text-center">
+                <SectionTitle title="The Tangerine Club" />
+            </header>
+        </div>
+
+        <img
+            src="/images/axel.webp"
+            alt="Axel Antunes"
+            style="view-transition-name: avatar-axel"
+            draggable="false"
+            class="object-cover opacity-15 lg:opacity-50 w-56 h-96 lg:h-full rotate-3 aspect-square rounded-2xl shadow-lg absolute -left-10 top-10"
+        />
+
+        <img
+            src="/images/cynthia.webp"
+            alt="Cynthia Prietsch"
+            draggable="false"
+            style="view-transition-name: avatar-cynthia"
+            class="object-cover opacity-15 lg:opacity-50 w-56 h-96 lg:h-full -rotate-3 aspect-square rounded-2xl shadow-lg absolute -right-10 top-10"
+        />
+
+        <article class="max-w-2xl mx-auto mt-8 px-2 z-20">
+            <p class="text-lg text-white leading-relaxed mx-auto mt-20 px-2">
+                The Tangerine Club is an indie-pop duo formed by Axel Antunes
+                and Cynthia Prietsch. Originally from Brazil. We spent over 12
+                years touring, performing in small venues, and sharing our music
+                with audiences far and wide. In March 2019, we made the pivotal
+                decision to retire from the road and transition to live
+                broadcasting our music directly from our home studio—a move that
+                has allowed us to connect more intimately with our fans and
+                create a space where our art can truly thrive.
+            </p>
+            <p class="text-lg text-white leading-relaxed mx-auto mt-6 px-2">
+                Our music is a blend of heartfelt lyrics and melodic tunes,
+                carefully crafted to evoke emotions and connect with listeners
+                on a deeper level. The shift to studio-based performances has
+                not only given us creative freedom but also allowed us to build
+                a community of like-minded individuals who share our passion for
+                music.
+            </p>
+            <p class="text-lg text-white leading-relaxed mx-auto mt-6 px-2">
+                At The Tangerine Club, we aim to create more than just music. We
+                strive to build a welcoming environment filled with good vibes,
+                where our followers can join us on this journey, whether it’s
+                through our regular live streams, our recorded tracks, or
+                exclusive content available on platforms like Bandcamp.
+            </p>
+            <p class="text-lg text-white leading-relaxed mx-auto mt-6 px-2">
+                Whether you’ve been with us since our touring days or are just
+                discovering our music, we’re thrilled to have you here. This is
+                more than just a club—it’s a community.
+            </p>
+        </article>
+    </section>
+</Layout>
