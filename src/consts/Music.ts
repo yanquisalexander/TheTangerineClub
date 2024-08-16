@@ -19,4 +19,9 @@ export const MUSICS: Music[] = [
         title: 'Seasons',
         releaseDate: convertDate(14, 2, 2021),
     },
+    {
+        id: 'last-train',
+        title: 'Last Train',
+        releaseDate: convertDate(5, 3, 2021),
+    }
 ]
