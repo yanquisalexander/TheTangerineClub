@@ -1,4 +1,6 @@
 ---
+import ExternalLink from "@/icons/ExternalLink.astro";
+
 const country = Astro.request.headers.get("X-Vercel-IP-Country") ?? "BR";
 
 const discardedPixBannerAt = Astro.cookies.get("discardedPixBannerAt");
@@ -26,8 +28,9 @@ const showPixBanner =
             <a
                 href="https://livepix.gg/thetangerineclub"
                 target="_blank"
-                class="bg-white text-orange-500 font-semibold px-4 py-2 mt-2 inline-block"
+                class="bg-white text-orange-500 font-semibold px-4 py-2 mt-3 inline-block"
             >
+                <ExternalLink class="inline-block w-4 h-4" />
                 Contribuir com Pix
             </a>
         </article>
