@@ -79,14 +79,18 @@ const schedules = [
             {
                 schedules.map((schedule) => (
                     <tr itemscope itemtype="https://schema.org/BroadcastEvent">
-                        <td
-                            class="pr-16"
-                            itemprop="startDate"
-                            <!-- @ts-ignore -->
-                            content={schedule.utc}
-                        >
-                            {schedule.title}
-                        </td>
+                        <script
+                            type="application/ld+json"
+                            is:inline
+                            set:html={JSON.stringify({
+                                "@context": "https://schema.org",
+                                "@type": "BroadcastEvent",
+                                name: "The Tangerine Club Live Stream",
+                                startDate: schedule.utc,
+                                url: "https://twitch.tv/thetangerineclub",
+                            })}
+                        />
+                        <td class="pr-16">{schedule.title}</td>
                         <td>{schedule.time}</td>
                     </tr>
                 ))
