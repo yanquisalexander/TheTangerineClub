@@ -1,22 +1,56 @@
 ---
 import SectionTitle from "@components/SectionTitle.astro";
 
+const getUTCTimestamp = (
+    day: number,
+    localHour: number,
+    localOffset: number,
+) => {
+    // Crear una fecha en UTC en la medianoche (00:00) del día actual
+    const date = new Date(
+        Date.UTC(
+            new Date().getUTCFullYear(),
+            new Date().getUTCMonth(),
+            new Date().getUTCDate(),
+        ),
+    );
+
+    // Ajustar al día de la semana deseado
+    const currentUTCDay = date.getUTCDay();
+    const targetDay = (day + 7 - currentUTCDay) % 7;
+    date.setUTCDate(date.getUTCDate() + targetDay);
+
+    // Convertir la hora local a UTC
+    const utcHour = localHour + localOffset; // Brazil Time (GMT-3) tiene un offset de +3 horas respecto a UTC
+
+    // Establecer la hora en UTC
+    date.setUTCHours(utcHour, 0, 0, 0);
+    return date.toISOString();
+};
+
+// Offset para Brazil Time (GMT-3)
+const BRT_OFFSET = 3;
+
 const schedules = [
     {
         title: "Thursday",
         time: "4:00 PM",
+        utc: getUTCTimestamp(4, 16, BRT_OFFSET), // Jueves a las 16:00 BRT
     },
     {
         title: "Friday",
         time: "4:00 PM",
+        utc: getUTCTimestamp(5, 16, BRT_OFFSET), // Viernes a las 16:00 BRT
     },
     {
         title: "Saturday",
         time: "4:00 PM",
+        utc: getUTCTimestamp(6, 16, BRT_OFFSET), // Sábado a las 16:00 BRT
     },
     {
         title: "Sunday",
         time: "2:00 PM",
+        utc: getUTCTimestamp(0, 14, BRT_OFFSET), // Domingo a las 14:00 BRT
     },
 ];
 ---
@@ -24,6 +58,8 @@ const schedules = [
 <section
     id="stream-schedules"
     class="mt-28 max-w-5xl flex flex-col justify-center items-center mx-auto"
+    itemscope
+    itemtype="https://schema.org/BroadcastEvent"
 >
     <header class="text-center">
         <SectionTitle title="Stream Schedules 🕑️" />
@@ -45,7 +81,13 @@ const schedules = [
             {
                 schedules.map((schedule) => (
                     <tr>
-                        <td class="pr-16">{schedule.title}</td>
+                        <td
+                            class="pr-16"
+                            itemprop="startDate"
+                            content={schedule.utc}
+                        >
+                            {schedule.title}
+                        </td>
                         <td>{schedule.time}</td>
                     </tr>
                 ))
