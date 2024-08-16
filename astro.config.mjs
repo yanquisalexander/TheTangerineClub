@@ -11,5 +11,8 @@ export default defineConfig({
     //auth()
   ],
   output: "server",
-  adapter: vercel()
+  adapter: vercel(),
+  devToolbar: {
+    enabled: false
+  }
 });
