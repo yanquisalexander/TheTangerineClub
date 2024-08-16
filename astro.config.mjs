@@ -14,5 +14,6 @@ export default defineConfig({
   adapter: vercel(),
   devToolbar: {
     enabled: false
-  }
+  },
+  site: "https://the-tangerine-club.vercel.app/",
 });
