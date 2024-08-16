@@ -9,7 +9,7 @@ const hostname = new URL(Astro.url).hostname;
 ---
 
 <article
-    class="z-50 mt-32 max-w-4xl mx-auto px-3 flex justify-center min-h-screen w-full"
+    class="z-50 mt-32 max-w-4xl mx-auto px-3 flex flex-col min-h-screen w-full"
 >
     <div
         class="w-full max-h-[30rem] h-fit aspect-video bg-black border-2 border-white rounded-lg overflow-hidden relative"
@@ -59,6 +59,18 @@ const hostname = new URL(Astro.url).hostname;
             scrolling="no"
             class="w-full h-full"></iframe>
     </div>
+    <footer class="sm:hidden text-center text-white mt-2">
+        <p>
+            Join us and listen to our music <strong>live</strong> on
+            <a
+                href={`https://twitch.tv/${streamer}`}
+                target="_blank"
+                class="text-purple-500 hover:underline"
+            >
+                Twitch
+            </a>
+        </p>
+    </footer>
 </article>
 
 <script>
