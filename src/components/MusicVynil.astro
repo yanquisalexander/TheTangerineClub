@@ -286,6 +286,10 @@ const { music } = Astro.props;
                 );
                 wavesurfer.setVolume(newVolume / 100);
             });
+
+            document.addEventListener("astro:before-swap", () => {
+                wavesurfer.destroy();
+            });
         }
     });
 </script>
