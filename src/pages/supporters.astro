@@ -1,0 +1,24 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import DonateWithPix from "@components/DonateWithPix.astro";
+import SectionTitle from "@components/SectionTitle.astro";
+---
+
+<Layout
+    title="Supporters - The Tangerine Club"
+    description="Check out our supporters, the people who make our music possible."
+>
+    <section class="flex flex-col items-center justify-center mt-16">
+        <div class="max-w-5xl w-full mx-auto px-5">
+            <header class="text-center">
+                <SectionTitle title="Supporters" />
+                <p class="text-gray-300 mt-16">
+                    We are grateful for the support of our fans, friends, and
+                    family. <br />These are the people who make our music
+                    possible.
+                </p>
+            </header>
+            <DonateWithPix />
+        </div>
+    </section>
+</Layout>

@@ -16,4 +16,7 @@ export default defineConfig({
     enabled: false
   },
   site: "https://the-tangerine-club.vercel.app/",
+  experimental: {
+    serverIslands: true
+  }
 });
