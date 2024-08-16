@@ -66,37 +66,42 @@ const schedules = [
         </p>
     </header>
 
-    <table
-        class="table-auto mt-8 max-w-xl p-4 w-full mx-auto border border-separate border-opacity-70 rounded-lg"
-    >
-        <thead>
-            <tr>
-                <th class="text-left">Day</th>
-                <th class="text-left">Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            {
-                schedules.map((schedule) => (
-                    <tr itemscope itemtype="https://schema.org/BroadcastEvent">
-                        <script
-                            type="application/ld+json"
-                            is:inline
-                            set:html={JSON.stringify({
-                                "@context": "https://schema.org",
-                                "@type": "BroadcastEvent",
-                                name: "The Tangerine Club Live Stream",
-                                startDate: schedule.utc,
-                                url: "https://twitch.tv/thetangerineclub",
-                            })}
-                        />
-                        <td class="pr-16">{schedule.title}</td>
-                        <td>{schedule.time}</td>
-                    </tr>
-                ))
-            }
-        </tbody>
-    </table>
+    <div class="mt-8 w-full mx-auto px-4">
+        <table
+            class="table-auto max-w-xl w-full p-4 mx-auto border border-separate border-opacity-70 rounded-lg"
+        >
+            <thead>
+                <tr>
+                    <th class="text-left">Day</th>
+                    <th class="text-left">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    schedules.map((schedule) => (
+                        <tr
+                            itemscope
+                            itemtype="https://schema.org/BroadcastEvent"
+                        >
+                            <script
+                                type="application/ld+json"
+                                is:inline
+                                set:html={JSON.stringify({
+                                    "@context": "https://schema.org",
+                                    "@type": "BroadcastEvent",
+                                    name: "The Tangerine Club Live Stream",
+                                    startDate: schedule.utc,
+                                    url: "https://twitch.tv/thetangerineclub",
+                                })}
+                            />
+                            <td class="pr-16">{schedule.title}</td>
+                            <td>{schedule.time}</td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    </div>
     <span class="-skew-x-6 text-gray-100 mt-4">
         * All times are in Brazil Time (GMT-3)
     </span>
