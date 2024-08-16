@@ -1,9 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getStoreProducts } from "@/utils/getStoreProducts";
 import SectionTitle from "@components/SectionTitle.astro";
 
-const products = await getStoreProducts();
+export const prerender = true;
 ---
 
 <Layout
