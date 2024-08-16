@@ -56,6 +56,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.10
         version: 3.4.10
+      twitch-m3u8:
+        specifier: ^1.1.5
+        version: 1.1.5
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -2311,6 +2314,9 @@ packages:
 
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
+
+  twitch-m3u8@1.1.5:
+    resolution: {integrity: sha512-o037ePS9fwfuOmBe/ftji/e3cqzWq50AUvuIHJZ5E0pV73UMjn3BAm00aZUYVrt3Ns6k08HvhVjAIya/WYcGRg==}
 
   type-fest@2.19.0:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
@@ -5148,6 +5154,8 @@ snapshots:
       typescript: 5.5.4
 
   tslib@2.6.3: {}
+
+  twitch-m3u8@1.1.5: {}
 
   type-fest@2.19.0: {}
 
