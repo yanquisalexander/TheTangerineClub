@@ -1,9 +1,66 @@
+---
+import TwitchIcon from "@/icons/Twitch.astro";
+import InstagramIcon from "@/icons/Instagram.astro";
+import SpotifyIcon from "@/icons/Spotify.astro";
+import YouTubeIcon from "@/icons/YouTube.astro";
+import PatreonIcon from "@/icons/Patreon.astro";
+const SocialNetworks = [
+    {
+        name: "Twitch",
+        url: "https://twitch.tv/TheTangerineClub",
+        icon: TwitchIcon,
+    },
+    {
+        name: "Instagram",
+        url: "https://instagram.com/TheTangerineClub",
+        icon: InstagramIcon,
+    },
+    {
+        name: "Spotify",
+        url: "https://open.spotify.com/artist/4NJhBhUqaOIQmuDsPEMrJL",
+        icon: SpotifyIcon,
+    },
+    {
+        name: "YouTube",
+        url: "https://youtube.com/TheTangerineClub",
+        icon: YouTubeIcon,
+    },
+    {
+        name: "Patreon",
+        url: "https://patreon.com/TheTangerineClub",
+        icon: PatreonIcon,
+    },
+];
+---
+
 <footer class="py-8 text-center text-sm text-gray-200 relative">
     <hr
         aria-hidden="true"
         class="my-12 h-[2px] w-full min-w-[18rem] border-t-0 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent bg-center"
     />
-    <p>
+
+    <nav>
+        <ul
+            class="flex flex-row items-center justify-center gap-x-6"
+            aria-label="Social networks"
+        >
+            {
+                SocialNetworks.map((network) => (
+                    <li class="inline-block justify-center">
+                        <a
+                            href={network.url}
+                            aria-label={`${network.name} of TheTangerineClub`}
+                            class="inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100 group  items-center"
+                        >
+                            <network.icon class="aspect-square object-cover size-7 text-white group-hover:text-[#ff8e00]" />
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+
+    <p class="mt-4">
         {new Date().getFullYear()} - Proudly made by <a
             href="https://instagram.com/alexitoo_uy"
             class="text-blue-200 hover:underline transition-colors hover:text-white"
