@@ -1,17 +1,23 @@
 import type { APIContext } from "astro";
 //@ts-ignore
-import twitch from 'twitch-m3u8'
+import twitch from 'twitch-m3u8';
 
 export const GET = async ({ request }: APIContext) => {
     try {
-        const stream = await twitch.getStream("thetangerineclub")
+        const stream = await twitch.getStream("thetangerineclub");
 
-        const stream720p = stream.find((s: any) => s.resolution === '1280x720')
-        const m3u8Response = await fetch(stream720p.url)
+        const stream720p = stream.find((s: any) => s.resolution === '1280x720');
+        const m3u8Response = await fetch(stream720p.url);
 
         return new Response(m3u8Response.body, {
             headers: {
                 'Content-Type': 'application/vnd.apple.mpegurl',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET',
+                'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0',
+                'Surrogate-Control': 'no-store'
             },
         });
     } catch (error) {
