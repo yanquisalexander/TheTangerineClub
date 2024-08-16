@@ -1,0 +1,50 @@
+---
+import SectionTitle from "@components/SectionTitle.astro";
+---
+
+<section
+    id="about-us"
+    class="mt-8 mb-32 max-w-5xl flex flex-col justify-center items-center mx-auto"
+>
+    <header class="text-center">
+        <SectionTitle title="About The Tangerine Club" />
+        <p class="text-lg text-gray-200 max-w-3xl mx-auto mt-20 px-2">
+            We're Axel Antunes and Cynthia Prietsch, an indie-pop duo from
+            Brazil. After over 12 years of touring, we retired in 2019 to focus
+            on live streaming our music from our studio. <strong
+                >The Tangerine Club</strong
+            > is where we share our songs and positive vibes with a vibrant community.
+        </p>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-4">
+        <a
+            class="flex flex-col md:flex-row items-center justify-center mt-8 group hover:scale-105 transition duration-300"
+            href="/about#axel"
+        >
+            <img
+                src="/images/axel.webp"
+                alt="Axel Antunes"
+                class="size-32 rounded-full transform group-hover:saturate-150 transition duration-300"
+            />
+
+            <span class="text-white text-lg mt-4 md:mt-0 md:ml-4">
+                Axel Antunes
+            </span>
+        </a>
+        <a
+            class="flex flex-col md:flex-row items-center justify-center mt-8 group hover:scale-105 transition duration-300"
+            href="/about#cynthia"
+        >
+            <img
+                src="/images/cynthia.webp"
+                alt="Cynthia Prietsch"
+                class="size-32 rounded-full transform group-hover:saturate-150 transition duration-300"
+            />
+
+            <span class="text-white text-lg mt-4 md:mt-0 md:ml-4">
+                Cynthia Prietsch
+            </span>
+        </a>
+    </div>
+</section>
