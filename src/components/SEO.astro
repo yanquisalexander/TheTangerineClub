@@ -3,8 +3,11 @@ import Manrope from "@fontsource-variable/manrope/files/manrope-latin-wght-norma
 
 import type { Preload } from "@/types/Preload";
 import { SOCIAL_NETWORKS } from "@/consts/SocialNetworks";
+import { MUSICS } from "@/consts/Music";
 
 const SOCIAL_URLS = SOCIAL_NETWORKS.map((network) => network.url);
+
+const MusicNames = MUSICS.map((music) => music.title);
 
 interface Props {
     title: string;
@@ -30,6 +33,13 @@ const determineCanonicalURL = () => {
 };
 
 const canonicalURL = new URL(determineCanonicalURL(), Astro.site);
+
+const FAQs = [
+    {
+        question: "What are the Tangerine Club's original songs?",
+        answer: `The Tangerine Club's original songs are: ${new Intl.ListFormat("en", { style: "long", type: "conjunction" }).format(MusicNames)}`,
+    },
+];
 ---
 
 <title>{title}</title>
@@ -119,3 +129,20 @@ const canonicalURL = new URL(determineCanonicalURL(), Astro.site);
 <!-- <script is:inline src="/registerSW.js"></script> -->
 <!-- <link rel="manifest" href="/manifest.webmanifest" />
  -->
+
+<script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: FAQs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+            },
+        })),
+    })}
+/>
