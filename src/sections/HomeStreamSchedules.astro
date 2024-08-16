@@ -58,8 +58,6 @@ const schedules = [
 <section
     id="stream-schedules"
     class="mt-28 max-w-5xl flex flex-col justify-center items-center mx-auto"
-    itemscope
-    itemtype="https://schema.org/BroadcastEvent"
 >
     <header class="text-center">
         <SectionTitle title="Stream Schedules 🕑️" />
@@ -80,10 +78,11 @@ const schedules = [
         <tbody>
             {
                 schedules.map((schedule) => (
-                    <tr>
+                    <tr itemscope itemtype="https://schema.org/BroadcastEvent">
                         <td
                             class="pr-16"
                             itemprop="startDate"
+                            <!-- @ts-ignore -->
                             content={schedule.utc}
                         >
                             {schedule.title}
