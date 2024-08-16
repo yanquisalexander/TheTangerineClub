@@ -5,7 +5,7 @@ const CONFIG = {
     MIDU_API_UPTIME_WORKER: "https://midudev-apis.midudev.workers.dev/uptime",
 };
 
-const streamer = "TheTangerineClub";
+const streamer = "MyLivingRoom";
 
 let isStreamerOnline = false;
 const response = await fetch(`${CONFIG.MIDU_API_UPTIME_WORKER}/${streamer}`);
@@ -27,13 +27,13 @@ if (response.ok) {
         class="absolute inset-0 object-cover w-full h-full"
     />
 
-    <header
-        class="relative z-10 flex flex-col items-center justify-center h-full text-center max-w-4xl mx-auto px-5"
-    >
-        {isStreamerOnline ? <HeroLiveNow streamer={streamer} /> : null}
-
-        <h1 class="text-2xl font-medium">The Tangerine Club</h1>
-    </header>
+    {
+        isStreamerOnline ? (
+            <HeroLiveNow streamer={streamer} />
+        ) : (
+            <header class="relative z-10 flex flex-col items-center justify-center h-full text-center max-w-4xl mx-auto px-5"></header>
+        )
+    }
 </section>
 
 <style>

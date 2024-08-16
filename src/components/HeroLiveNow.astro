@@ -8,9 +8,11 @@ const { streamer } = Astro.props;
 const hostname = new URL(Astro.url).hostname;
 ---
 
-<article class="z-50 mt-16">
+<article
+    class="z-50 mt-32 max-w-4xl mx-auto px-3 flex justify-center min-h-screen w-full"
+>
     <div
-        class="w-full md:h-96 lg:h-[30rem] h-48 sm:h-64 aspect-video bg-black border-2 border-white rounded-lg overflow-hidden relative"
+        class="w-full max-h-[30rem] h-fit aspect-video bg-black border-2 border-white rounded-lg overflow-hidden relative"
     >
         <h2
             id="live-now"
