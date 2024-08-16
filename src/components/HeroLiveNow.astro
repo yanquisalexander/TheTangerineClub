@@ -1,4 +1,7 @@
 ---
+// @ts-ignore
+import ReactTwitchEmbedVideo from "react-twitch-embed-video";
+
 interface Props {
     streamer: string;
 }
@@ -53,13 +56,15 @@ const hostname = new URL(Astro.url).hostname;
             </svg>
             {streamer}
         </a>
-        <iframe
-            title="Tangerine Club Twitch Stream"
-            src={`https://player.twitch.tv/?channel=${streamer}&parent=${hostname}`}
-            frameborder="0"
-            allowfullscreen
-            scrolling="no"
-            class="w-full h-full"></iframe>
+        <div id="live-player" class="w-full h-full">
+            <ReactTwitchEmbedVideo
+                client:idle="react"
+                channel={streamer}
+                layout="video"
+                width="100%"
+                height="100%"
+            />
+        </div>
     </div>
     <footer class="sm:hidden text-center text-white mt-2">
         <p>
@@ -74,7 +79,6 @@ const hostname = new URL(Astro.url).hostname;
         </p>
     </footer>
 </article>
-
 <script>
     import { $ } from "@/lib/dom-selector";
 
