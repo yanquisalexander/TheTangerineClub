@@ -15,14 +15,15 @@ import SectionTitle from "@components/SectionTitle.astro";
     </header>
 
     <div
-        class="snap-x snap-mandatory h-32 flex items-center justify-center mt-8 gap-8 overflow-x-auto w-full"
+        class="snap-x snap-mandatory h-40 flex items-center justify-center mt-8 gap-8 overflow-x-auto w-full"
     >
         {
             MUSICS.map((music) => (
                 <a
                     href={`/originals/${music.id}`}
-                    class="group size-32"
+                    class="group size-40"
                     style={`view-transition-name: cover-${music.id}`}
+                    title={`Go to ${music.title} page`}
                 >
                     <article class="group relative w-full h-full">
                         <img
@@ -30,8 +31,8 @@ import SectionTitle from "@components/SectionTitle.astro";
                             src={`/images/music-covers/${music.id}.webp`}
                             alt={music.title}
                         />
-                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h3 class="text-white text-2xl font-medium text-center mt-4">
+                        <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <h3 class="text-white text-lg font-medium text-center">
                                 {music.title}
                             </h3>
                         </div>
