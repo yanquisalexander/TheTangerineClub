@@ -34,10 +34,23 @@ const determineCanonicalURL = () => {
 
 const canonicalURL = new URL(determineCanonicalURL(), Astro.site);
 
+import { getTop5Requested } from "@/utils/top5Requested";
+
+const songs = await getTop5Requested().then((songs) =>
+    songs.map(
+        (song) => `${song.title} by ${song.artist} (${song.timesPlayed} times)`,
+    ),
+);
+
 const FAQs = [
     {
         question: "What are the Tangerine Club's original songs?",
         answer: `The Tangerine Club's original songs are: ${new Intl.ListFormat("en", { style: "long", type: "conjunction" }).format(MusicNames)}`,
+    },
+    {
+        question:
+            "What are the top 5 requested songs on The Tangerine Club live streams?",
+        answer: `The top 5 requested songs are: ${new Intl.ListFormat("en", { style: "long", type: "conjunction" }).format(songs)}`,
     },
     {
         question: "Where The Tangerine Club performs live?",

@@ -56,21 +56,4 @@ const songs = await getTop5Requested();
             class="size-5 inline-block ml-1"
         />
     </a>
-
-    <script
-        is:inline
-        type="application/ld+json"
-        set:html={JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: songs.map((song) => ({
-                "@type": "Question",
-                name: `What are the top 5 requested songs on The Tangerine Club stream?`,
-                acceptedAnswer: {
-                    "@type": "Answer",
-                    text: `${song.title} by ${song.artist} has been played ${song.timesPlayed} times.`,
-                },
-            })),
-        })}
-    />
 </section>
