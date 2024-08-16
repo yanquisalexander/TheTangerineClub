@@ -1,0 +1,58 @@
+---
+import SectionTitle from "@components/SectionTitle.astro";
+
+const schedules = [
+    {
+        title: "Thursday",
+        time: "4:00 PM",
+    },
+    {
+        title: "Friday",
+        time: "4:00 PM",
+    },
+    {
+        title: "Saturday",
+        time: "4:00 PM",
+    },
+    {
+        title: "Sunday",
+        time: "2:00 PM",
+    },
+];
+---
+
+<section
+    id="stream-schedules"
+    class="mt-8 max-w-5xl flex flex-col justify-center items-center mx-auto"
+>
+    <header class="text-center">
+        <SectionTitle title="Stream Schedules 🕑️" />
+        <p class="text-lg text-gray-200 max-w-3xl mx-auto mt-20 px-2">
+            Check out our stream schedules and join us on our live shows.
+        </p>
+    </header>
+
+    <table
+        class="table-auto mt-8 max-w-xl p-4 w-full mx-auto border border-separate border-opacity-70 rounded-lg"
+    >
+        <thead>
+            <tr>
+                <th class="text-left">Day</th>
+                <th class="text-left">Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                schedules.map((schedule) => (
+                    <tr>
+                        <td class="pr-16">{schedule.title}</td>
+                        <td>{schedule.time}</td>
+                    </tr>
+                ))
+            }
+        </tbody>
+    </table>
+    <span class="-skew-x-6 text-gray-100 mt-4">
+        * All times are in Brazil Time (GMT-3)
+    </span>
+</section>
