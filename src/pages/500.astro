@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout
+    title="Internal Server Error - The Tangerine Club"
+    description="Sorry, something went wrong on our end."
+>
+    <section class="flex flex-col items-center justify-center mt-24">
+        <img src="/images/404.webp" alt="404" class="size-36" />
+        <h1 class="text-xl -skew-x-6 font-bold text-center mt-8">
+            Oops! Something went wrong.
+        </h1>
+        <p class="text-lg
+            text-center">
+            Our tangerine bots are working hard to fix the issue. Please try
+            again later.
+        </p>
+
+        <a
+            href="/"
+            class="text-white transform transition hover:scale-[1.15] hover:rotate-1 font-semibold mt-8 px-4 py-2 bg-orange-500"
+            >Go back home</a
+        >
+    </section>
+</Layout>
