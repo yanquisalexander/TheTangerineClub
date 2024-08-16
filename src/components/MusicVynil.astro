@@ -275,6 +275,7 @@ const { music } = Astro.props;
                 );
                 $volumeIndicator && ($volumeIndicator.hidden = false);
                 clearTimeout(volumeIndicatorTimer as number | undefined);
+                // @ts-ignore
                 volumeIndicatorTimer = setTimeout(
                     () => $volumeIndicator && ($volumeIndicator.hidden = true),
                     2500,
