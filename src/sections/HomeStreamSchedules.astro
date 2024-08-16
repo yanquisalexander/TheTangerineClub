@@ -36,21 +36,25 @@ const schedules = [
         title: "Thursday",
         time: "4:00 PM",
         utc: getUTCTimestamp(4, 16, BRT_OFFSET), // Jueves a las 16:00 BRT
+        endUtc: getUTCTimestamp(4, 20, BRT_OFFSET), // Jueves a las 20:00 BRT
     },
     {
         title: "Friday",
         time: "4:00 PM",
         utc: getUTCTimestamp(5, 16, BRT_OFFSET), // Viernes a las 16:00 BRT
+        endUtc: getUTCTimestamp(5, 20, BRT_OFFSET), // Viernes a las 20:00 BRT
     },
     {
         title: "Saturday",
         time: "4:00 PM",
         utc: getUTCTimestamp(6, 16, BRT_OFFSET), // Sábado a las 16:00 BRT
+        endUtc: getUTCTimestamp(6, 20, BRT_OFFSET), // Sábado a las 20:00 BRT
     },
     {
         title: "Sunday",
         time: "2:00 PM",
         utc: getUTCTimestamp(0, 14, BRT_OFFSET), // Domingo a las 14:00 BRT
+        endUtc: getUTCTimestamp(0, 18, BRT_OFFSET), // Domingo a las 18:00 BRT
     },
 ];
 ---
@@ -79,19 +83,23 @@ const schedules = [
             <tbody>
                 {
                     schedules.map((schedule) => (
-                        <tr
-                            itemscope
-                            itemtype="https://schema.org/BroadcastEvent"
-                        >
+                        <tr>
                             <script
                                 type="application/ld+json"
                                 is:inline
                                 set:html={JSON.stringify({
                                     "@context": "https://schema.org",
-                                    "@type": "BroadcastEvent",
+                                    "@type": "Event",
                                     name: "The Tangerine Club Live Stream",
                                     startDate: schedule.utc,
+                                    endDate: schedule.endUtc,
                                     url: "https://twitch.tv/thetangerineclub",
+                                    eventStatus:
+                                        "https://schema.org/EventScheduled",
+                                    performer: {
+                                        "@type": "MusicGroup",
+                                        name: "The Tangerine Club",
+                                    },
                                 })}
                             />
                             <td class="pr-16">{schedule.title}</td>
