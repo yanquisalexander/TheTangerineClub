@@ -4,7 +4,7 @@ import twitch from 'twitch-m3u8';
 
 export const GET = async ({ request }: APIContext) => {
     try {
-        const stream = await twitch.getStream("thetangerineclub", true);
+        const stream = await twitch.getStream("thetangerineclub");
         const streamUrl = stream[0].url;
 
         const streamData = await fetch(streamUrl);
