@@ -28,13 +28,13 @@ const songs = await getTop5Requested();
             </thead>
             <tbody>
                 {
-                    songs.map((song) => (
+                    songs.map((song, index) => (
                         <tr class="bg-black/20 border-b last:border-b-0 first:border-t">
                             <th
                                 scope="row"
                                 class="px-6 py-4 font-medium text-gray-100 whitespace-nowrap"
                             >
-                                {song.title}
+                                #{index + 1} {song.title}
                             </th>
                             <td class="px-6 py-4"> {song.artist} </td>
                             <td class="px-6 py-4"> {song.timesPlayed} </td>
