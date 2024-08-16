@@ -1,0 +1,65 @@
+---
+import { getTop5Requested } from "@/utils/top5Requested";
+import SectionTitle from "@components/SectionTitle.astro";
+
+const songs = await getTop5Requested();
+---
+
+<section
+    id="top-requested"
+    class="mt-24 max-w-5xl flex flex-col justify-center items-center mx-auto"
+>
+    <header class="text-center">
+        <SectionTitle title="Top Requested on Stream 🔥" />
+        <p class="text-lg text-gray-200 max-w-3xl mx-auto mt-20 px-2">
+            Our viewers have spoken! Here are the top 5 requested songs on our
+            stream.
+        </p>
+    </header>
+
+    <div class="relative overflow-x-auto shadow-md rounded-lg mt-8">
+        <table class="w-full text-sm text-left text-gray-200">
+            <thead class="text-xs text-gray-300 uppercase bg-black/20">
+                <tr>
+                    <th scope="col" class="px-6 py-3"> Title </th>
+                    <th scope="col" class="px-6 py-3"> Artist </th>
+                    <th scope="col" class="px-6 py-3"> Times Played </th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    songs.map((song) => (
+                        <tr class="bg-black/20 border-b last:border-b-0 first:border-t">
+                            <th
+                                scope="row"
+                                class="px-6 py-4 font-medium text-gray-100 whitespace-nowrap"
+                            >
+                                {song.title}
+                            </th>
+                            <td class="px-6 py-4"> {song.artist} </td>
+                            <td class="px-6 py-4"> {song.timesPlayed} </td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify({
+            // FAQPage schema What are the top 5 requested songs on The Tangerine Club stream?
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: songs.map((song) => ({
+                "@type": "Question",
+                name: `What are the top 5 requested songs on The Tangerine Club stream?`,
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `${song.title} by ${song.artist} has been played ${song.timesPlayed} times.`,
+                },
+            })),
+        })}
+    />
+</section>
