@@ -15,13 +15,13 @@ import SectionTitle from "@components/SectionTitle.astro";
     </header>
 
     <div
-        class="snap-x snap-mandatory h-40 flex items-center justify-center mt-8 gap-8 overflow-x-auto w-full"
+        class="snap-x h-40 max-w-5xl flex px-4 md:justify-center mt-8 gap-8 overflow-x-scroll w-full mx-auto"
     >
         {
             MUSICS.map((music) => (
                 <a
                     href={`/originals/${music.id}`}
-                    class="group size-40"
+                    class="group size-40 snap-center shrink-0"
                     style={`view-transition-name: cover-${music.id}`}
                     title={`Go to ${music.title} page`}
                 >
