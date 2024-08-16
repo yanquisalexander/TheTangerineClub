@@ -5,9 +5,11 @@ import twitch from 'twitch-m3u8';
 export const GET = async ({ request }: APIContext) => {
     try {
         const stream = await twitch.getStream("thetangerineclub", true);
-        console.log(stream);
+        const streamUrl = stream[0].url;
 
-        return new Response(stream, {
+        const streamData = await fetch(streamUrl);
+
+        return new Response(await streamData.text(), {
             headers: {
                 'Content-Type': 'application/vnd.apple.mpegurl',
                 'Access-Control-Allow-Origin': '*',
