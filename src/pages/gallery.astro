@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import SectionTitle from "@components/SectionTitle.astro";
+import Galeria from "@components/Gallery";
 
 export const prerender = true;
 ---
@@ -16,7 +17,13 @@ export const prerender = true;
         <div class="max-w-5xl w-full mx-auto px-5">
             <header class="text-center">
                 <SectionTitle title="Gallery" />
+                <p class="text-gray-300 mt-16">
+                    Check out our gallery with photos from our performances,
+                    studio sessions, and more.
+                </p>
             </header>
         </div>
+
+        <Galeria client:idle />
     </section>
 </Layout>

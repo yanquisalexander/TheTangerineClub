@@ -7,9 +7,12 @@
     "start": "astro dev --port 6000",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "script:create-meta": "pnpx tsx ./scripts/create-meta-from-gallery.ts",
+    "script:optimize-images": "pnpx tsx ./scripts/optimize-images.ts"
   },
   "dependencies": {
+    "@appnest/masonry-layout": "^2.2.3",
     "@astrojs/check": "^0.9.2",
     "@astrojs/react": "^3.6.2",
     "@astrojs/sitemap": "^3.1.6",
@@ -25,9 +28,12 @@
     "auth-astro": "^4.1.2",
     "canvas-confetti": "^1.9.3",
     "fast-xml-parser": "^4.4.1",
+    "image-meta": "^0.2.1",
+    "photoswipe": "^5.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-twitch-embed-video": "^3.1.0",
+    "sharp": "^0.33.5",
     "simple-xml-to-json": "^1.2.2",
     "tailwindcss": "^3.4.10",
     "twitch-m3u8": "^1.1.5",
@@ -35,6 +41,8 @@
     "wavesurfer.js": "^7.8.3"
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.6.4"
+    "@types/canvas-confetti": "^1.6.4",
+    "@types/photoswipe": "^4.1.6",
+    "fast-glob": "^3.3.2"
   }
 }
