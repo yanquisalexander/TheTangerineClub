@@ -24,7 +24,9 @@ const { id, title, description, href } = Astro.props;
     <div class="relative flex items-center justify-center">
         <img
             src={`/images/shortcuts/${id}.webp`}
+            loading="lazy"
             alt="icon"
+            decoding="async"
             class="size-12 md:size-16 object-scale-down aspect-square"
         />
     </div>
