@@ -1,0 +1,60 @@
+---
+import FeaturedLinkCircle from "@components/FeaturedLinkCircle.astro";
+
+const LINKS = [
+    {
+        id: "tangerine-map",
+        title: "Tangerine Map",
+        description:
+            "Meet from where in the world our fans are listening to us.",
+        href: "/map",
+    },
+    {
+        id: "youtube",
+        title: "YouTube",
+        description: "Watch our music videos and live performances.",
+        href: "https://youtube.com/thetangerineclub",
+    },
+    {
+        id: "merch",
+        title: "Merchandise",
+        description: "Get your hands on exclusive The Tangerine Club merch.",
+        href: "/store/external",
+    },
+    {
+        id: "patreon",
+        title: "Patreon",
+        description: "Support us on Patreon and get exclusive perks.",
+        href: "https://patreon.com/thetangerineclub",
+    },
+    {
+        id: "bandcamp",
+        title: "Bandcamp",
+        description: "Listen to our music and get exclusive content.",
+        href: "https://thetangerineclub.bandcamp.com",
+    },
+    {
+        id: "discord",
+        title: "Discord",
+        description: "Join our community on Discord and chat with us.",
+        href: "https://discord.gg/GUSdMVn",
+    },
+];
+---
+
+<section id="linked-sites" class="max-w-5xl w-full mx-auto px-5 mt-16">
+    <div
+        class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8"
+    >
+        {
+            LINKS.map((link) => (
+                <FeaturedLinkCircle
+                    id={link.id}
+                    title={link.title}
+                    description={link.description}
+                    href={link.href}
+                />
+            ))
+        }
+    </div>
+</section>

@@ -1,0 +1,67 @@
+---
+interface Props {
+    id: string;
+    title: string;
+    description: string;
+    href: string;
+}
+
+const { id, title, description, href } = Astro.props;
+---
+
+<a
+    href={href}
+    target="_blank"
+    class="shortcut-link relative flex flex-col mx-auto items-center justify-center p-6 size-40 bg-white/20 rounded-full transition-all duration-300 group overflow-hidden hover:scale-110"
+>
+    <!-- Title wrapper -->
+    <div class="absolute inset-0 flex items-end justify-center transform">
+        <div class="flex justify-center items-end w-full mb-4">
+            <span class="text-white font-semibold">{title}</span>
+        </div>
+    </div>
+
+    <div class="relative flex items-center justify-center">
+        <img
+            src={`/images/shortcuts/${id}.webp`}
+            alt="icon"
+            class="size-16 object-scale-down aspect-square"
+        />
+    </div>
+
+    <div
+        class="absolute inset-0 px-2 flex items-center justify-center transform transition duration-200 bg-black opacity-0 group-hover:opacity-100"
+    >
+        <p class="text-gray-300 text-center mt-2">
+            {description}
+        </p>
+    </div>
+</a>
+
+<style is:global>
+    @keyframes spin-title {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes flip-horizontal {
+        0% {
+            transform: rotateY(90deg);
+        }
+        100% {
+            transform: rotateY(0deg);
+        }
+    }
+
+    .shortcut-link:hover .group-hover\:animate-spin-title {
+        animation: spin-title 2s linear infinite;
+    }
+
+    .shortcut-link:hover .group-hover\:flip-horizontal {
+        animation: flip-horizontal 0.6s ease-out forwards;
+    }
+</style>
