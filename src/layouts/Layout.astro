@@ -7,6 +7,7 @@ import { ViewTransitions } from "astro:transitions";
 import SEO from "@/components/SEO.astro";
 import type { Preload } from "@/types/Preload";
 import VamooSecretCode from "@components/VamooSecretCode.astro";
+import { WeAreOnlineFooter } from "@components/WeAreOnlineFooter";
 
 interface Props {
 	title: string;
@@ -40,6 +41,11 @@ const { title, description, preload, canonical, image, schema } = Astro.props;
 		<main>
 			<slot />
 		</main>
+		<WeAreOnlineFooter
+			client:idle
+			transition:persist
+			transition:name="footer-we-are-online"
+		/>
 		<SiteFooter />
 	</body>
 </html>
