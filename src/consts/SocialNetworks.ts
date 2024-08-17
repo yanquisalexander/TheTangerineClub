@@ -11,7 +11,7 @@ export const SOCIAL_NETWORKS = [
     },
     {
         name: "Instagram",
-        url: "https://instagram.com/TheTangerineClub",
+        url: "https://instagram.com/thetangerineclubofficial",
         icon: InstagramIcon,
     },
     {
