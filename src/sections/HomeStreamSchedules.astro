@@ -33,6 +33,12 @@ const BRT_OFFSET = 3;
 
 const schedules = [
     {
+        title: "Wednesday",
+        time: "8:00 PM",
+        utc: getUTCTimestamp(3, 20, BRT_OFFSET), // Miércoles a las 20:00 BRT
+        endUtc: getUTCTimestamp(3, 23, BRT_OFFSET),
+    },
+    {
         title: "Thursday",
         time: "4:00 PM",
         utc: getUTCTimestamp(4, 16, BRT_OFFSET), // Jueves a las 16:00 BRT
@@ -52,9 +58,9 @@ const schedules = [
     },
     {
         title: "Sunday",
-        time: "2:00 PM",
-        utc: getUTCTimestamp(0, 14, BRT_OFFSET), // Domingo a las 14:00 BRT
-        endUtc: getUTCTimestamp(0, 18, BRT_OFFSET), // Domingo a las 18:00 BRT
+        time: "4:00 PM",
+        utc: getUTCTimestamp(0, 16, BRT_OFFSET), // Domingo a las 16:00 BRT
+        endUtc: getUTCTimestamp(0, 20, BRT_OFFSET), // Domingo a las 20:00 BRT
     },
 ];
 ---
