@@ -6,6 +6,7 @@ import "@fontsource-variable/manrope";
 import { ViewTransitions } from "astro:transitions";
 import SEO from "@/components/SEO.astro";
 import type { Preload } from "@/types/Preload";
+import VamooSecretCode from "@components/VamooSecretCode.astro";
 
 interface Props {
 	title: string;
@@ -35,7 +36,7 @@ const { title, description, preload, canonical, image, schema } = Astro.props;
 	<body>
 		<SiteHeader />
 		<NoiseBackground />
-
+		<VamooSecretCode />
 		<main>
 			<slot />
 		</main>
