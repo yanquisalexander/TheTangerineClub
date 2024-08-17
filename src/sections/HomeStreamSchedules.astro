@@ -90,7 +90,14 @@ const schedules = [
                                 set:html={JSON.stringify({
                                     "@context": "https://schema.org",
                                     "@type": "Event",
-                                    name: "The Tangerine Club Live Stream",
+                                    name: `The Tangerine Club Live Stream - ${new Date(
+                                        schedule.utc,
+                                    ).toLocaleDateString("en-US", {
+                                        weekday: "long",
+                                        month: "long",
+                                        day: "numeric",
+                                        year: "numeric",
+                                    })}`,
                                     startDate: schedule.utc,
                                     endDate: schedule.endUtc,
                                     url: "https://twitch.tv/thetangerineclub",
