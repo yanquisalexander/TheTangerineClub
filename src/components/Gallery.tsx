@@ -38,6 +38,7 @@ export default function Galeria() {
                             <img
                                 className="rounded-xl object-cover w-full h-auto"
                                 loading="lazy"
+                                style={{ aspectRatio: `${width}/${height}` }}
                                 src={`/images/gallery/img-${i + 1
                                     }.webp`}
                                 alt={`Image ${i + 1} of The Tangerine Club`}
@@ -45,6 +46,7 @@ export default function Galeria() {
                             <img
                                 className="blur-md opacity-0 group-hover:opacity-100 absolute inset-0 transition contrast-150 -z-10 object-cover"
                                 loading="lazy"
+                                style={{ aspectRatio: `${width}/${height}` }}
                                 src={`/images/gallery/img-${i + 1
                                     }.webp`}
                                 alt={`Image ${i + 1} of The Tangerine Club with blur effect to make a shadow effect`}
