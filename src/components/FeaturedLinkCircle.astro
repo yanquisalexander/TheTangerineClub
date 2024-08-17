@@ -12,7 +12,7 @@ const { id, title, description, href } = Astro.props;
 <a
     href={href}
     target="_blank"
-    class="shortcut-link relative flex flex-col mx-auto items-center justify-center p-6 size-40 bg-white/20 rounded-full transition-all duration-300 group overflow-hidden hover:scale-110"
+    class="shortcut-link relative flex flex-col mx-auto items-center justify-center p-6 size-32 md:size-40 bg-white/20 rounded-full transition-all duration-300 group overflow-hidden hover:scale-110"
 >
     <!-- Title wrapper -->
     <div class="absolute inset-0 flex items-end justify-center transform">
@@ -25,14 +25,14 @@ const { id, title, description, href } = Astro.props;
         <img
             src={`/images/shortcuts/${id}.webp`}
             alt="icon"
-            class="size-16 object-scale-down aspect-square"
+            class="size-12 md:size-16 object-scale-down aspect-square"
         />
     </div>
 
     <div
         class="absolute inset-0 px-2 flex items-center justify-center transform transition duration-200 bg-black opacity-0 group-hover:opacity-100"
     >
-        <p class="text-gray-300 text-center mt-2">
+        <p class="text-gray-300 text-sm md:text-base text-center mt-2">
             {description}
         </p>
     </div>
