@@ -66,6 +66,7 @@ export const WeAreOnlineFooter = () => {
                         We are live now! <a href="https://twitch.tv/thetangerineclub" className="underline" target="_blank">Watch now</a>
                     </p>
                     <button
+                        aria-label="Close live now footer"
                         onClick={() => { setShowFooter(false); setClosedManually(true) }}
                         className="absolute top-0 right-0 p-2 text-white size-10"
                     >
