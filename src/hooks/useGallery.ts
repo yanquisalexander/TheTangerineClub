@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import photos from '@/data/gallery-meta.json';
+import "@appnest/masonry-layout";
+// @ts-ignore
+import PhotoSwipeLightbox from "photoswipe/lightbox";
 
 export const useGallery = () => {
     const offset = 10
@@ -8,10 +11,7 @@ export const useGallery = () => {
 
     useEffect(() => {
         const init = async () => {
-            await import('@appnest/masonry-layout')
-            // @ts-ignore
-            const module = await import("photoswipe/lightbox")
-            const PhotoSwipeLightbox = module.default
+
             const lightbox = new PhotoSwipeLightbox({
                 gallery: "#gallery",
                 children: "a",
