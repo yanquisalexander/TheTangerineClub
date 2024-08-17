@@ -18,22 +18,24 @@ export const prerender = true;
             <SectionTitle title="Original Songs" />
         </header>
 
-        <section class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-32">
+        <section
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-32"
+        >
             {
                 MUSICS.map((music) => (
                     <a
                         href={`/originals/${music.id}`}
-                        class="group size-56"
+                        class="group size-56 hover:scale-110 transition duration-300 hover:rotate-1"
                         style={`view-transition-name: cover-${music.id}`}
                     >
-                        <article class="group relative">
+                        <article class="relative">
                             <img
                                 class="w-full h-full object-cover rounded-lg"
                                 src={`/images/music-covers/${music.id}.webp`}
                                 alt={`Cover of ${music.title}`}
                             />
-                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <h3 class="text-white text-2xl font-medium text-center mt-4">
+                            <div class="absolute top-0 inset-x-0 pb-12 bg-gradient-to-b from-black via-black/60 transition-opacity duration-300 flex items-start justify-center">
+                                <h3 class="text-white text-xl font-medium text-center mt-4">
                                     {music.title}
                                 </h3>
                             </div>
