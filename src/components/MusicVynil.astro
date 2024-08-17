@@ -196,6 +196,11 @@ const { music } = Astro.props;
 
             wavesurfer.on("pause", () => {
                 $vynil.classList.add("paused");
+                console.log({
+                    currentTime: (wavesurfer.getCurrentTime() * 1000).toFixed(
+                        0,
+                    ),
+                });
             });
 
             wavesurfer.on("finish", () => {
