@@ -1,13 +1,75 @@
 ---
 // @ts-ignore
 import ReactTwitchEmbedVideo from "react-twitch-embed-video";
+import { SCHEDULED_STREAMS } from "@/consts/ScheduledStreams";
 
 interface Props {
     streamer: string;
 }
 
 const { streamer } = Astro.props;
+
+// Get the current stream using range from utc between start and end from the scheduled streams
+const currentStream = SCHEDULED_STREAMS.find((stream) => {
+    const now = new Date();
+    const start = new Date(stream.time);
+    const end = new Date(stream.endUtc);
+    return now >= start && now <= end;
+});
 ---
+
+{
+    /* 
+    Add a Schema.org VideoObject with BroadcastEvent properties to inform search engines that we are live now
+*/
+}
+<script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: "The Tangerine Club Live Stream",
+        description: "Join The Tangerine Club on their live stream.",
+        duration: "PT4H",
+        uploadDate: currentStream?.time || new Date().toISOString(),
+        thumbnailUrl:
+            "https://pbs.twimg.com/media/E_lseMYX0Ao2M-C?format=jpg&name=large",
+        embedUrl: `https://twitch.tv/${streamer}`,
+        publication: {
+            "@type": "BroadcastEvent",
+            isLiveBroadcast: true,
+            startDate: currentStream?.time || new Date().toISOString(),
+            endDate:
+                currentStream?.endUtc ||
+                new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString(),
+            url: `https://twitch.tv/${streamer}`,
+            location: {
+                "@type": "VirtualLocation",
+                url: `https://twitch.tv/${streamer}`,
+                name: "The Tangerine Club Twitch Channel",
+            },
+            performer: {
+                "@type": "MusicGroup",
+                name: "The Tangerine Club",
+            },
+            organizer: {
+                "@type": "Organization",
+                name: "The Tangerine Club",
+                url: "https://thetangerineclub.net",
+            },
+            offers: {
+                "@type": "Offer",
+                url: `https://twitch.tv/${streamer}`,
+                price: "0",
+                priceCurrency: "USD",
+                availability: "https://schema.org/InStock",
+            },
+            eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+            image: "https://pbs.twimg.com/media/E_lseMYX0Ao2M-C?format=jpg&name=large",
+        },
+    })}
+/>
 
 <article
     data-tangerine-live-now="true"
