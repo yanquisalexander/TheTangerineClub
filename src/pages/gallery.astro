@@ -3,13 +3,17 @@ import Layout from "@/layouts/Layout.astro";
 import SectionTitle from "@components/SectionTitle.astro";
 import Galeria from "@components/Gallery";
 
+import galleryMeta from "@/data/gallery-meta.json";
+
+const randomImageIndex = Math.floor(Math.random() * galleryMeta.length);
+
 export const prerender = true;
 ---
 
 <Layout
     title="Gallery - The Tangerine Club"
     description="Check out our gallery with photos from our performances, studio sessions, and more."
-    image="https://the-tangerine-club.vercel.app/images/banner.webp"
+    image={`/images/gallery/img-${randomImageIndex}.webp`}
 >
     <section
         class="flex flex-col items-center justify-center mt-16 relative overflow-clip"
