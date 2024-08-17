@@ -20,6 +20,11 @@ import { SOCIAL_NETWORKS } from "@/consts/SocialNetworks";
                             target="_blank"
                             rel="noopener noreferrer"
                             href={network.url}
+                            title={
+                                network.name === "GitHub"
+                                    ? "Contribute to this website"
+                                    : `Follow TheTangerineClub on ${network.name}`
+                            }
                             aria-label={`${network.name} of TheTangerineClub`}
                             class="inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100 group  items-center"
                         >
