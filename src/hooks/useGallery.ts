@@ -39,7 +39,7 @@ export const useGallery = () => {
                 clone.setAttribute("data-pswp-height", img.height)
                 clone.setAttribute(
                     "href",
-                    `/gallery/img-${imgIndex}.webp`
+                    `/images/gallery/img-${imgIndex}.webp`
                 )
                 clone.classList.add("animate-fade-up")
                 clone.classList.add("animate-delay-300")
