@@ -8,6 +8,9 @@ export const MUSICS: Music[] = [
         title: 'Flowers of September',
         releaseDate: convertDate(1, 3, 2020),
         hasLyrics: true,
+        streamingLinks: {
+            spotify: 'https://open.spotify.com/album/1ufVBhcNddoJwC67pz0zU6',
+        }
     },
     {
         id: 'disarm',
