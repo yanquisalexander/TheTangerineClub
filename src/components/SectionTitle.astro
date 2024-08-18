@@ -10,9 +10,12 @@ const { title } = Astro.props;
     class="text-5xl font-atomic px-4 lowercase font-thin transform -skew-y-3 leading-tight relative text-zinc-200 select-none"
 >
     {title}
-    <span
-        class="font-atomic-extras text-[120px] absolute -bottom-24 -skew-y-6 inset-x-0"
-    >
-        &#x0061;
-    </span>
 </h2>
+
+<style>
+    h2:after {
+        content: "a";
+        @apply font-atomic-extras text-[120px] mt-4 absolute inset-x-0 -skew-y-6;
+        z-index: -1;
+    }
+</style>
