@@ -6,7 +6,6 @@ const CONFIG = {
 };
 
 const debugStreamer = Astro.url.searchParams.get("debugStreamer");
-
 const streamer = debugStreamer ?? "TheTangerineClub";
 
 let isStreamerOnline = false;
@@ -22,7 +21,7 @@ if (response.ok) {
     <img
         id="backdrop-image"
         draggable="false"
-        loading="eager"
+        loading="lazy"
         src="/images/banner.webp"
         decoding="async"
         alt="The Tangerine Club"
@@ -38,7 +37,7 @@ if (response.ok) {
                     The Tangerine Club
                     <img
                         src="/images/emotes/ttcNoted.webp"
-                        loading="eager"
+                        loading="lazy"
                         decoding="async"
                         alt="Noted"
                         class="size-10 sm:size-14 inline-block"
@@ -87,16 +86,14 @@ if (response.ok) {
 </style>
 
 <script>
-    import { $ } from "@/lib/dom-selector";
-
     document.addEventListener("astro:page-load", () => {
-        const $scrollDownButton = $("#scroll-down");
-
-        $scrollDownButton?.addEventListener("click", () => {
-            window.scrollTo({
-                top: window.innerHeight,
-                behavior: "smooth",
+        document
+            .querySelector("#scroll-down")
+            ?.addEventListener("click", () => {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: "smooth",
+                });
             });
-        });
     });
 </script>
