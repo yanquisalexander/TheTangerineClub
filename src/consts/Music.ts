@@ -43,5 +43,15 @@ export const MUSICS: Music[] = [
         id: 'burlesque-dreams',
         title: 'Burlesque Dreams',
         releaseDate: convertDate(6, 11, 2021),
+    },
+    {
+        id: 'raging-sea',
+        title: 'Raging Sea',
+        releaseDate: convertDate(25, 12, 2023),
+    },
+    {
+        id: 'candles-burning-blue',
+        title: 'Candles Burning Blue',
+        releaseDate: convertDate(11, 5, 2024),
     }
 ].sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
