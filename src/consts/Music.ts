@@ -29,4 +29,4 @@ export const MUSICS: Music[] = [
         title: 'Colored Hats',
         releaseDate: convertDate(5, 3, 2021),
     }
-]
+].sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
