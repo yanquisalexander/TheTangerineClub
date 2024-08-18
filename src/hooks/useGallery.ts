@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'preact/hooks';
 import photos from '@/data/gallery-meta.json';
 import "@appnest/masonry-layout";
 // @ts-ignore

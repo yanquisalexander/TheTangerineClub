@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from 'react';
+import type { HTMLAttributes } from "preact/compat"
 
 export type Masory<T> = T & { gap: string, maxcolwidth: string }
 
