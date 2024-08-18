@@ -1,19 +1,18 @@
 import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
-//import auth from "auth-astro";
 import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
-
 import db from "@astrojs/db";
+
+import auth from "auth-astro";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(),
-    //auth()
-  , sitemap(), preact({
-    compat: true
-  }), db()],
+    , sitemap(), preact({
+      compat: true
+    }), db(), auth()],
   output: "server",
   adapter: vercel(),
   devToolbar: {
