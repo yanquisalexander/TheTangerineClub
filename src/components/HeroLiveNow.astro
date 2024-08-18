@@ -1,6 +1,4 @@
 ---
-// @ts-ignore
-import ReactTwitchEmbedVideo from "react-twitch-embed-video";
 import { SCHEDULED_STREAMS } from "@/consts/ScheduledStreams";
 
 interface Props {
@@ -118,13 +116,8 @@ const currentStream = SCHEDULED_STREAMS.find((stream) => {
             {streamer}
         </a>
         <div id="live-player" class="w-full h-full">
-            <ReactTwitchEmbedVideo
-                client:idle="react"
-                channel={streamer}
-                layout="video"
-                width="100%"
-                height="100%"
-            />
+            <twitch-stream channel={streamer} width="100%" height="100%"
+            ></twitch-stream>
         </div>
     </div>
     <footer class="sm:hidden text-center text-white mt-2">
@@ -142,6 +135,7 @@ const currentStream = SCHEDULED_STREAMS.find((stream) => {
 </article>
 <script>
     import { $ } from "@/lib/dom-selector";
+    import "twitch-stream-embed";
 
     document.addEventListener("astro:page-load", () => {
         const $liveNow = $("#live-now");

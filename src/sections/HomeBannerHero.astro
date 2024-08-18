@@ -5,7 +5,9 @@ const CONFIG = {
     MIDU_API_UPTIME_WORKER: "https://midudev-apis.midudev.workers.dev/uptime",
 };
 
-const streamer = "TheTangerineClub";
+const debugStreamer = Astro.url.searchParams.get("debugStreamer");
+
+const streamer = debugStreamer ?? "TheTangerineClub";
 
 let isStreamerOnline = false;
 const response = await fetch(`${CONFIG.MIDU_API_UPTIME_WORKER}/${streamer}`);
