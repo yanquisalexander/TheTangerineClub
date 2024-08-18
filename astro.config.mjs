@@ -16,7 +16,7 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
-  site: "https://thetangerineclub.net/",
+  site: "https://www.thetangerineclub.net/",
   experimental: {
     serverIslands: true
   }
