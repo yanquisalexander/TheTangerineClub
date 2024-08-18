@@ -124,6 +124,7 @@ const { music } = Astro.props;
 
 <script>
     import { $ } from "@/lib/dom-selector";
+    import { updateSessionMetadata } from "@/lib/setup-media-session";
     import type { Music } from "@/types/Music";
     import WaveSurfer from "wavesurfer.js";
 
@@ -173,6 +174,15 @@ const { music } = Astro.props;
                     };
                     document.addEventListener("click", clickListener);
                 });
+
+                updateSessionMetadata(
+                    {
+                        title: music.title,
+                        artist: "The Tangerine Club",
+                        artwork: `/images/music-covers/${music.id}.webp`,
+                    },
+                    wavesurfer,
+                );
 
                 $lyricsContainer
                     ?.querySelectorAll("p")
