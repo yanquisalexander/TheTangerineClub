@@ -14,32 +14,94 @@ import SectionTitle from "@components/SectionTitle.astro";
         </p>
     </header>
 
-    <div
-        class="snap-x h-40 max-w-5xl flex px-4 md:justify-center mt-8 gap-8 overflow-x-scroll w-full mx-auto"
-    >
-        {
-            MUSICS.map((music) => (
-                <a
-                    href={`/originals/${music.id}`}
-                    class="group size-40 snap-normal shrink-0"
-                    style={`view-transition-name: cover-${music.id}`}
-                    title={`Go to ${music.title} page`}
-                >
-                    <article class="group relative w-full h-full">
-                        <img
-                            class="w-full h-full object-cover rounded-lg absolute inset-0"
-                            src={`/images/music-covers/${music.id}.webp`}
-                            alt={`Cover of ${music.title}`}
-                            title={`Cover of ${music.title}`}
-                        />
-                        <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h3 class="text-white text-lg font-medium text-center">
-                                {music.title}
-                            </h3>
-                        </div>
-                    </article>
-                </a>
-            ))
-        }
+    <div class="relative w-full">
+        <button
+            id="prev-button"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-80 text-white p-2 rounded-full z-10"
+            aria-label="Scroll Left"
+        >
+            &larr;
+        </button>
+
+        <div
+            class="snap-x h-40 max-w-5xl flex px-4 mt-8 gap-8 overflow-x-scroll w-full mx-auto"
+            id="original-music-carousel"
+        >
+            {
+                MUSICS.map((music) => (
+                    <a
+                        href={`/originals/${music.id}`}
+                        class="group size-40 snap-normal shrink-0"
+                        style={`view-transition-name: cover-${music.id}`}
+                        title={`Go to ${music.title} page`}
+                    >
+                        <article class="group relative w-full h-full">
+                            <img
+                                class="w-full h-full object-cover rounded-lg absolute inset-0"
+                                src={`/images/music-covers/${music.id}.webp`}
+                                alt={`Cover of ${music.title}`}
+                                title={`Cover of ${music.title}`}
+                            />
+                            <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="text-white text-lg font-medium text-center">
+                                    {music.title}
+                                </h3>
+                            </div>
+                        </article>
+                    </a>
+                ))
+            }
+        </div>
+
+        <button
+            id="next-button"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-80 text-white p-2 rounded-full z-10"
+            aria-label="Scroll Right"
+        >
+            &rarr;
+        </button>
     </div>
 </section>
+
+<style>
+    #prev-button,
+    #next-button {
+        width: 40px;
+        height: 40px;
+        @apply hidden sm:flex mt-3;
+
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    #prev-button:hover,
+    #next-button:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+</style>
+<script>
+    import { $, $$ } from "@/lib/dom-selector";
+
+    document.addEventListener("astro:page-load", () => {
+        const $carousel = $("#original-music-carousel");
+        const $prevButton = $("#prev-button");
+        const $nextButton = $("#next-button");
+
+        const scrollAmount = $carousel?.clientWidth || 0;
+
+        $prevButton?.addEventListener("click", () => {
+            $carousel?.scrollBy({
+                left: -scrollAmount,
+                behavior: "smooth",
+            });
+        });
+
+        $nextButton?.addEventListener("click", () => {
+            $carousel?.scrollBy({
+                left: scrollAmount,
+                behavior: "smooth",
+            });
+        });
+    });
+</script>
