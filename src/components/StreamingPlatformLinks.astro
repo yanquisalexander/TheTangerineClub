@@ -1,0 +1,26 @@
+---
+import type { Music } from "@/types/Music";
+import StreamingLink from "./StreamingLink.astro";
+import Spotify from "@/icons/Spotify.astro";
+
+interface Props {
+    streamingLinks: Music["streamingLinks"];
+}
+
+const { streamingLinks } = Astro.props;
+---
+
+{
+    streamingLinks && (
+        <section class="mt-8">
+            <h3 class="flex flex-wrap justify-center gap-2 text-zinc-400">
+                Listen on
+            </h3>
+            <footer class="mx-auto flex max-w-[600px] flex-wrap justify-center gap-2 lg:max-w-full">
+                <StreamingLink href={streamingLinks.spotify}>
+                    <Spotify class="w-8 h-8" />
+                </StreamingLink>
+            </footer>
+        </section>
+    )
+}

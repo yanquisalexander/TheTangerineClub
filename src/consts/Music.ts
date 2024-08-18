@@ -53,5 +53,8 @@ export const MUSICS: Music[] = [
         id: 'candles-burning-blue',
         title: 'Candles Burning Blue',
         releaseDate: convertDate(11, 5, 2024),
+        streamingLinks: {
+            spotify: 'https://open.spotify.com/album/1JxAbZljewFDkaN7v6p1aB',
+        }
     }
 ].sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());

@@ -7,5 +7,10 @@ export interface Music {
     artistNotes?: {
         title: string;
         description: string;
-    }[]
+    }[],
+    streamingLinks?: {
+        spotify?: string;
+        appleMusic?: string;
+        youtube?: string;
+    };
 }

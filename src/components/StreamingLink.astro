@@ -1,0 +1,34 @@
+---
+interface Props {
+    href?: string;
+}
+
+const { href } = Astro.props;
+---
+
+{
+    href && (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-center justify-center overflow-hidden rounded-full p-2 text-white hover:text-[#ff8e00] transition"
+        >
+            <slot />
+        </a>
+    )
+}
+
+<style>
+    a:hover :global(svg),
+    a:focus :global(svg) {
+        transform: scale(1.05);
+    }
+
+    @media (prefers-reduced-motion) {
+        a:hover :global(svg),
+        a:focus :global(svg) {
+            transform: scale(1);
+        }
+    }
+</style>
