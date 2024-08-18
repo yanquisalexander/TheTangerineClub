@@ -5,6 +5,11 @@ export const prerender = true;
 const robotsTxt = `
 User-agent: *
 Allow: /
+
+# Host 
+Host: ${new URL(import.meta.env.SITE).host}
+
+# Sitemaps
 Sitemap: ${new URL('sitemap-index.xml', import.meta.env.SITE).href}
 `.trim();
 
