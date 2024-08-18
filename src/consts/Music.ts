@@ -56,6 +56,7 @@ export const MUSICS: Music[] = [
         id: 'candles-burning-blue',
         title: 'Candles Burning Blue',
         releaseDate: convertDate(11, 5, 2024),
+        hasLyrics: true,
         streamingLinks: {
             spotify: 'https://open.spotify.com/album/1JxAbZljewFDkaN7v6p1aB',
         }
