@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "script:create-meta": "pnpx tsx ./scripts/create-meta-from-gallery.ts",
-    "script:optimize-images": "pnpx tsx ./scripts/optimize-images.ts"
+    "script:optimize-images": "pnpx tsx ./scripts/optimize-images.ts",
+    "script:lyrics": "pnpx tsx ./scripts/generate-synced-lyrics.ts"
   },
   "dependencies": {
     "@appnest/masonry-layout": "^2.2.3",
@@ -41,6 +42,7 @@
     "wavesurfer.js": "^7.8.3"
   },
   "devDependencies": {
+    "@plussub/srt-vtt-parser": "^2.0.5",
     "@types/canvas-confetti": "^1.6.4",
     "@types/photoswipe": "^4.1.6",
     "fast-glob": "^3.3.2"

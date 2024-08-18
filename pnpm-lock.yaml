@@ -90,6 +90,9 @@ importers:
         specifier: ^7.8.3
         version: 7.8.3
     devDependencies:
+      '@plussub/srt-vtt-parser':
+        specifier: ^2.0.5
+        version: 2.0.5
       '@types/canvas-confetti':
         specifier: ^1.6.4
         version: 1.6.4
@@ -674,6 +677,9 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@plussub/srt-vtt-parser@2.0.5':
+    resolution: {integrity: sha512-cOedEgu7gyea9k+ixkPCQGf8ABBctFWWsBYnVCzzmuoHz45awc9vKtveHzn7VugR36fzFqgkXaLEn2HdZnzFdQ==}
 
   '@rollup/pluginutils@4.2.1':
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -3237,6 +3243,8 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@plussub/srt-vtt-parser@2.0.5': {}
 
   '@rollup/pluginutils@4.2.1':
     dependencies:
