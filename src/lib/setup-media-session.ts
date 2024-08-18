@@ -27,7 +27,5 @@ export const updateSessionMetadata = (metadata: CurrentMetadata, wavesurfer: Wav
             wavesurfer.pause();
             mediaSession.playbackState = "paused";
         });
-
-        console.log("Media session metadata updated");
     }
 }
