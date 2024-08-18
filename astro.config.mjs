@@ -16,7 +16,7 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
-  site: "https://the-tangerine-club.vercel.app/",
+  site: "https://thetangerineclub.net/",
   experimental: {
     serverIslands: true
   }
