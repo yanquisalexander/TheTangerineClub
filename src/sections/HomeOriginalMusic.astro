@@ -24,30 +24,37 @@ import SectionTitle from "@components/SectionTitle.astro";
         </button>
 
         <div
-            class="snap-x h-40 max-w-5xl flex px-4 mt-8 gap-8 overflow-x-scroll w-full mx-auto"
+            class="snap-x max-w-5xl flex px-4 mt-8 py-8 gap-8 overflow-x-scroll w-full mx-auto"
             id="original-music-carousel"
         >
             {
                 MUSICS.map((music) => (
                     <a
                         href={`/originals/${music.id}`}
-                        class="group size-40 snap-normal shrink-0"
+                        class="group size-40 snap-normal shrink-0 relative "
                         style={`view-transition-name: cover-${music.id}`}
                         title={`Go to ${music.title} page`}
                     >
-                        <article class="group relative w-full h-full">
+                        <article class="relative w-full h-full overflow-hidden rounded-lg">
                             <img
-                                class="w-full h-full object-cover rounded-lg absolute inset-0"
+                                class="w-full h-full object-cover absolute inset-0"
                                 src={`/images/music-covers/${music.id}.webp`}
                                 alt={`Cover of ${music.title}`}
                                 title={`Cover of ${music.title}`}
                             />
+
                             <div class="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <h3 class="text-white text-lg font-medium text-center">
                                     {music.title}
                                 </h3>
                             </div>
                         </article>
+                        <img
+                            class="w-full h-full object-cover absolute inset-0 -z-10 blur-lg brightness-120 scale-75 group-hover:scale-90 group-hover:saturate-200 group-hover:brightness-200 duration-300"
+                            src={`/images/music-covers/${music.id}.webp`}
+                            alt={`Cover of ${music.title} blurred to act as shadow`}
+                            title={`Cover of ${music.title} blurred to act as shadow`}
+                        />
                     </a>
                 ))
             }
