@@ -9,10 +9,17 @@ import auth from "auth-astro";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(),
-    , sitemap(), preact({
+  integrations: [
+    tailwind(),
+    sitemap(),
+    preact({
       compat: true
-    }), db(), auth()],
+    }),
+    db(),
+    auth({
+      configFile: './auth.config.mjs'
+    })
+  ],
   output: "server",
   adapter: vercel(),
   devToolbar: {
