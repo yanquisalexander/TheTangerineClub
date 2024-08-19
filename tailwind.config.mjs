@@ -10,6 +10,7 @@ export default {
 				mdx: "900px",
 			},
 			fontFamily: {
+				tiza: ["Tiza", "cursive"],
 				manrope: ["Manrope Variable", "sans-serif"],
 				atomic: ["Atomic Marker", "cursive"],
 				"atomic-extras": ["Atomic Marker Extras", "cursive"],
