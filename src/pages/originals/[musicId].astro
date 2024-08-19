@@ -45,8 +45,7 @@ const schema = {
 >
     <section class="flex flex-col mt-16 items-center justify-center">
         <div class="max-w-5xl w-full mx-auto px-5">
-            <script is:inline set:html={JSON.stringify(music)} id="music-data"
-            ></script>
+            <div set:html={JSON.stringify(music)} id="music-data" hidden></div>
             <h1 class="text-2xl font-semibold text-center">{music.title}</h1>
             <p class="text-sm text-gray-500 text-center">
                 Release date:
@@ -82,11 +81,10 @@ const schema = {
         </div>
     </section>
 
-    <template id="music-lyric-pharagraph">
+    <template id="music-lyric-paragraph">
         <p
             class="text-lg text-center opacity-50 cursor-pointer transition transform hover:opacity-100 hover:scale-105"
         >
-            {/*@ts-ignore*/}
         </p>
     </template>
 </Layout>
@@ -122,40 +120,31 @@ const schema = {
                 }
 
                 const $lyricParagraphTemplate = $(
-                    "#music-lyric-pharagraph"
+                    "#music-lyric-paragraph"
                 ) as HTMLTemplateElement;
                 if (!$lyricParagraphTemplate) {
                     console.error("Template for lyric paragraphs not found");
                     return;
                 }
 
-                lyrics.forEach(
-                    (lyric: {
-                        line: number;
-                        start_time: string;
-                        end_time: string;
-                        text: string;
-                    }) => {
-                        const $lyricParagraph =
-                            $lyricParagraphTemplate.content.cloneNode(
-                                true
-                            ) as HTMLElement;
-                        const paragraphElement =
-                            $lyricParagraph.querySelector("p");
+                lyrics.forEach(({ text, start_time, end_time }) => {
+                    const $lyricParagraph =
+                        $lyricParagraphTemplate.content.cloneNode(
+                            true
+                        ) as HTMLElement;
+                    const paragraphElement = $lyricParagraph.querySelector("p");
 
-                        if (paragraphElement) {
-                            paragraphElement.innerText = lyric.text;
-                            paragraphElement.dataset.startTime =
-                                lyric.start_time;
-                            paragraphElement.dataset.endTime = lyric.end_time;
-                            $lyricsContainer.appendChild(paragraphElement);
-                        } else {
-                            console.error(
-                                "Paragraph element not found in template"
-                            );
-                        }
+                    if (paragraphElement) {
+                        paragraphElement.innerText = text;
+                        paragraphElement.dataset.startTime = start_time;
+                        paragraphElement.dataset.endTime = end_time;
+                        $lyricsContainer.appendChild(paragraphElement);
+                    } else {
+                        console.error(
+                            "Paragraph element not found in template"
+                        );
                     }
-                );
+                });
             } catch (error) {
                 console.error("Error fetching lyrics:", error);
             }
