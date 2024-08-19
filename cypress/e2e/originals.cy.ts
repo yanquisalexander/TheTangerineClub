@@ -17,7 +17,7 @@ it('render lyrics if music has lyrics', () => {
 
     for (let i = 0; i < musicsWithLyrics.length; i++) {
         cy.visit(`/originals/${musicsWithLyrics[i].id}`);
-
         cy.get('#lyrics-container').should('exist');
+        cy.get('#lyrics-container').should('not.be.empty');
     }
 })
