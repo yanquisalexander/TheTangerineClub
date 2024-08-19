@@ -24,8 +24,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run Vitest
-        run: pnpm run test -- --run
+      - name: Start the application
+        run: pnpm run start &
+        env:
+          NODE_ENV: test
+
+      - name: Wait for the application to be ready
+        run: sleep 5
+
+      - name: Run Cypress
+        run: pnpm run cypress:run
 
   move-branch:
     needs: run-tests

@@ -43,6 +43,7 @@
     "@plussub/srt-vtt-parser": "^2.0.5",
     "@types/canvas-confetti": "^1.6.4",
     "@types/photoswipe": "^4.1.6",
+    "cypress": "^13.13.3",
     "fast-glob": "^3.3.2"
   },
   "overrides": {
