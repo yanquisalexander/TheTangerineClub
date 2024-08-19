@@ -35,6 +35,12 @@ const schema = {
     url: `https://thetangerineclub.com/originals/${music.id}`,
     datePublished: music.releaseDate,
 };
+
+const releaseDate = new Date(music.releaseDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
 ---
 
 <Layout
@@ -49,7 +55,7 @@ const schema = {
             <h1 class="text-2xl font-semibold text-center">{music.title}</h1>
             <p class="text-sm text-gray-500 text-center">
                 Release date:
-                <date></date>
+                <time datetime={music.releaseDate}>{releaseDate}</time>
             </p>
             <div class="flex flex-col mdx:flex-row items-start justify-center">
                 <article class="flex flex-col items-center w-full mdx:w-1/2">
@@ -95,7 +101,6 @@ const schema = {
 
     document.addEventListener("astro:page-load", () => {
         const $musicData = $("#music-data");
-        const $releaseDate = $("date");
 
         const fetchLyrics = async (musicId: string): Promise<void> => {
             try {
@@ -152,9 +157,7 @@ const schema = {
 
         if ($musicData) {
             const music = JSON.parse($musicData.innerHTML) as Music;
-            const releaseDate = new Date(music.releaseDate);
-            if ($releaseDate)
-                $releaseDate.innerText = releaseDate.toLocaleDateString();
+            $
             if (music.hasLyrics) {
                 fetchLyrics(music.id);
             }
