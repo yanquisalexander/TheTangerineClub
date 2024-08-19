@@ -4,13 +4,14 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev --port 6000",
+    "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "script:create-meta": "pnpx tsx ./scripts/create-meta-from-gallery.ts",
     "script:optimize-images": "pnpx tsx ./scripts/optimize-images.ts",
-    "script:lyrics": "pnpx tsx ./scripts/generate-synced-lyrics.ts"
+    "script:lyrics": "pnpx tsx ./scripts/generate-synced-lyrics.ts",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@appnest/masonry-layout": "^2.2.3",
