@@ -2,6 +2,7 @@
 import type { Music } from "@/types/Music";
 import StreamingLink from "./StreamingLink.astro";
 import Spotify from "@/icons/Spotify.astro";
+import Deezer from "@/icons/Deezer.astro";
 
 interface Props {
     streamingLinks: Music["streamingLinks"];
@@ -19,6 +20,9 @@ const { streamingLinks } = Astro.props;
             <footer class="mx-auto flex max-w-[600px] flex-wrap justify-center gap-2 lg:max-w-full">
                 <StreamingLink href={streamingLinks.spotify}>
                     <Spotify class="w-8 h-8" />
+                </StreamingLink>
+                <StreamingLink href={streamingLinks.deezer}>
+                    <Deezer class="w-8 h-8" />
                 </StreamingLink>
             </footer>
         </section>

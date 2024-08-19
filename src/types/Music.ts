@@ -10,6 +10,7 @@ export interface Music {
     }[],
     streamingLinks?: {
         spotify?: string;
+        deezer?: string;
         appleMusic?: string;
         youtube?: string;
     };

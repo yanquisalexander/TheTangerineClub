@@ -59,6 +59,7 @@ export const MUSICS: Music[] = [
         hasLyrics: true,
         streamingLinks: {
             spotify: 'https://open.spotify.com/album/1JxAbZljewFDkaN7v6p1aB',
+            deezer: 'https://www.deezer.com/album/576099611',
         }
     }
 ].sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
