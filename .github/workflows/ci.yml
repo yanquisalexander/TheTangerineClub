@@ -1,0 +1,45 @@
+name: Execute tests and move to test-passed branch
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Vitest
+        run: pnpm run test -- --run
+
+  move-branch:
+    needs: run-tests
+    if: success()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Create or move to test-passed branch
+        run: |
+          git fetch origin
+          git checkout -B test-passed
+          git push origin test-passed --force
