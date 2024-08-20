@@ -14,14 +14,8 @@ const { id, title, description, href } = Astro.props;
     target="_blank"
     class="shortcut-link relative flex flex-col mx-auto items-center justify-center p-6 size-32 md:size-40 bg-white/20 rounded-full transition-all duration-300 group overflow-hidden hover:scale-110"
 >
-    <!-- Title wrapper -->
-    <div class="absolute inset-0 flex items-end justify-center transform">
-        <div class="flex justify-center items-end w-full mb-4">
-            <span class="text-white font-semibold">{title}</span>
-        </div>
-    </div>
 
-    <div class="relative flex items-center justify-center">
+    <div class="flex flex-col items-center justify-center">
         <img
             src={`/images/shortcuts/${id}.webp`}
             loading="lazy"
@@ -29,6 +23,9 @@ const { id, title, description, href } = Astro.props;
             decoding="async"
             class="size-12 md:size-16 object-scale-down aspect-square"
         />
+        <div class="text-center flex justify-center">
+            <span class="text-white font-semibold text-center pt-1">{title}</span>
+        </div>
     </div>
 
     <div
