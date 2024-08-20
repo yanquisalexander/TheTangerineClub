@@ -1,4 +1,6 @@
 ---
+import SiteFooter from "./SiteFooter.astro";
+
 const links = [
     {
         label: "About",
@@ -131,43 +133,73 @@ const oddLinks = links.filter((_, index) => index % 2 !== 0);
     <!-- Opciones del menú móvil -->
     <div
         id="mobile-menu"
-        class="fixed inset-0 h-screen w-full z-[1000] bg-black bg-opacity-90 hidden md:hidden flex flex-col items-center justify-center"
+        class="fixed inset-0 h-screen w-full z-[1000] bg-black bg-opacity-90 hidden md:hidden flex flex-col items-center"
     >
-        <a
-            href="/"
-            class:list={[
-                "text-white",
-                "transition-all",
-                "duration-300",
-                "py-2",
-                "px-3",
-                "hover:bg-white/20",
-                "hover:bg-opacity-10",
-                currentPath === "/" ? activeClasses : null,
-            ]}
-        >
-            Home
-        </a>
-        {
-            links.map((link) => (
-                <a
-                    href={link.url}
-                    class:list={[
-                        "text-white",
-                        "transition-all",
-                        "duration-300",
-                        "py-2",
-                        "px-3",
-                        "hover:bg-white/20",
-                        "hover:bg-opacity-10",
-                        currentPath === link.url ? activeClasses : null,
-                    ]}
+        <header class="flex items-center justify-end w-full px-5 py-6">
+            <button
+                id="close-mobile-menu"
+                class="text-white focus:outline-none"
+                title="Close mobile menu"
+                aria-label="Close mobile menu"
+            >
+                <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
-                    {link.label}
-                </a>
-            ))
-        }
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </header>
+        <nav class="flex flex-col w-full items-start space-y-2 px-6">
+            <a
+                href="/"
+                class:list={[
+                    "text-white",
+                    "transition-all",
+                    "duration-300",
+                    "w-full",
+                    "py-2",
+                    "relative",
+                    "px-3",
+                    "hover:bg-white/20",
+                    "hover:bg-opacity-10",
+                    currentPath === "/" ? 'mobile-active' : null,
+                ]}
+            >
+                Home
+            </a>
+            {
+                links.map((link) => (
+                    <a
+                        href={link.url}
+                        class:list={[
+                            "text-white",
+                            "transition-all",
+                            "duration-300",
+                            "w-full",
+                            "py-2",
+                            "px-3",
+                            "hover:bg-white/20",
+                            "hover:bg-opacity-10",
+                            currentPath === link.url ? activeClasses : null,
+                        ]}
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+        </nav>
+        <SiteFooter />
     </div>
+</header>
+
 
     <style>
         .header-animate {
@@ -177,6 +209,18 @@ const oddLinks = links.filter((_, index) => index % 2 !== 0);
             animation: reduce-header linear both;
             animation-timeline: scroll();
             animation-range: 0 150px;
+        }
+
+
+
+        .mobile-active::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: #dd6b20;
         }
 
         @keyframes reduce-header {
@@ -198,6 +242,7 @@ const oddLinks = links.filter((_, index) => index % 2 !== 0);
             const $homeButton = $("#home-button");
             const $header = $("header");
             const $mobileMenuButton = $("#mobile-menu-button");
+            const $closeMobileMenu = $("#close-mobile-menu");
             const $mobileMenu = $("#mobile-menu");
             const $body = $("body");
 
@@ -221,6 +266,10 @@ const oddLinks = links.filter((_, index) => index % 2 !== 0);
                     $body?.classList.add("overflow-hidden");
                 }
             });
+
+            $closeMobileMenu?.addEventListener("click", () => {
+                $mobileMenu?.classList.add("hidden");
+                $body?.classList.remove("overflow-hidden");
+            });
         });
     </script>
-</header>
