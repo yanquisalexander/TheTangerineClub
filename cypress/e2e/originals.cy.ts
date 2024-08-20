@@ -21,3 +21,16 @@ it('render lyrics if music has lyrics', () => {
         cy.get('#lyrics-container').should('not.be.empty');
     }
 })
+it('user can navigate to music page by clicking on music card (from /originals)', () => {
+    cy.visit('/originals');
+    cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+    });
+
+    MUSICS.forEach((music) => {
+        cy.get(`a[href="/originals/${music.id}"]`).click();
+        cy.url().should('include', `/originals/${music.id}`);
+        cy.go('back');
+    });
+})
+

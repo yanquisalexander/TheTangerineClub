@@ -6,6 +6,7 @@ const CONFIG = {
 };
 
 const debugStreamer = Astro.url.searchParams.get("debugStreamer");
+const forceShowTwitch = Astro.url.searchParams.get("forceShowTwitch");
 const streamer = debugStreamer ?? "TheTangerineClub";
 
 let isStreamerOnline = false;
@@ -29,7 +30,7 @@ if (response.ok) {
     />
 
     {
-        isStreamerOnline ? (
+        isStreamerOnline || forceShowTwitch ? (
             <HeroLiveNow streamer={streamer} />
         ) : (
             <header class="relative z-10 flex flex-col items-center justify-center h-full text-center max-w-4xl mx-auto px-5">
