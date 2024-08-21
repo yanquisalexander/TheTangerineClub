@@ -15,8 +15,8 @@ importers:
         specifier: ^0.9.3
         version: 0.9.3(typescript@5.5.4)
       '@astrojs/db':
-        specifier: ^0.13.1
-        version: 0.13.1(react@18.3.1)
+        specifier: ^0.13.2
+        version: 0.13.2(react@18.3.1)
       '@astrojs/preact':
         specifier: ^3.5.1
         version: 3.5.1(@babel/core@7.25.2)(preact@10.23.2)(vite@5.4.0(@types/node@22.3.0))
@@ -29,6 +29,9 @@ importers:
       '@astrojs/vercel':
         specifier: ^7.7.2
         version: 7.7.2(astro@4.14.2(@types/node@22.3.0)(rollup@4.20.0)(typescript@5.5.4))(next@14.2.5(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      '@astrojs/web-vitals':
+        specifier: ^2.0.0
+        version: 2.0.0(@astrojs/db@0.13.2(react@18.3.1))
       '@auth/core':
         specifier: ^0.32.0
         version: 0.32.0
@@ -125,8 +128,8 @@ packages:
   '@astrojs/compiler@2.10.3':
     resolution: {integrity: sha512-bL/O7YBxsFt55YHU021oL+xz+B/9HvGNId3F9xURN16aeqDK9juHGktdkCSXz+U4nqFACq6ZFvWomOzhV+zfPw==}
 
-  '@astrojs/db@0.13.1':
-    resolution: {integrity: sha512-pq2DKHIrC3IEVrwka0g8jJzK0luMJSM1tMBm4O8L4yimNVyC35QMZYR0XW6269c1b1AkHU2HHIExozwXmmDLnQ==}
+  '@astrojs/db@0.13.2':
+    resolution: {integrity: sha512-J8u7T+NbIiD8MsQRGTzMfPUZGh0dAsnmb5Uon9N9E7L2JkcL65s6VRbkWhKEsBxmDGU4q/fz60PdAIERAOHxEQ==}
 
   '@astrojs/internal-helpers@0.4.1':
     resolution: {integrity: sha512-bMf9jFihO8YP940uD70SI/RDzIhUHJAolWVcO1v5PUivxGKvfLZTLTVVxEYzGYyPsA3ivdLNqMnL5VgmQySa+g==}
@@ -176,6 +179,11 @@ packages:
     resolution: {integrity: sha512-mwnXz4OHE+X20kyQfrxAoLCe+uIhZ1w+G7fJnERSua9/DgX+j0Gvfku3D33bNyxaIwLQB5BOGAu2eZoi+gna4Q==}
     peerDependencies:
       astro: ^4.2.0
+
+  '@astrojs/web-vitals@2.0.0':
+    resolution: {integrity: sha512-SGVUkxf1cVmbcI2Niw3ZOxzZMGiaKAIKWTi+nkJ5gkKh6FSSDiGE9o/3U1cbYUSYJ/DomeRB5mYf5V1xtGD7jQ==}
+    peerDependencies:
+      '@astrojs/db': ^0.13.0
 
   '@astrojs/yaml2ts@0.2.1':
     resolution: {integrity: sha512-CBaNwDQJz20E5WxzQh4thLVfhB3JEEGz72wRA+oJp6fQR37QLAqXZJU0mHC+yqMOQ6oj0GfRPJrz6hjf+zm6zA==}
@@ -2185,10 +2193,12 @@ packages:
 
   libsql@0.3.19:
     resolution: {integrity: sha512-Aj5cQ5uk/6fHdmeW0TiXK42FqUlwx7ytmMLPSaUQPin5HKKKuUPD62MAbN4OEweGBBI7q1BekoEN4gPUEL6MZA==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   libsql@0.4.1:
     resolution: {integrity: sha512-qZlR9Yu1zMBeLChzkE/cKfoKV3Esp9cn9Vx5Zirn4AVhDWPcjYhKwbtJcMuHehgk3mH+fJr9qW+3vesBWbQpBg==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -3491,6 +3501,9 @@ packages:
   web-vitals@3.5.2:
     resolution: {integrity: sha512-c0rhqNcHXRkY/ogGDJQxZ9Im9D19hDihbzSQJrsioex+KnFgmMzBiy57Z1EjkhX/+OjyBpclDCzz2ITtjokFmg==}
 
+  web-vitals@4.2.3:
+    resolution: {integrity: sha512-/CFAm1mNxSmOj6i0Co+iGFJ58OS4NRGVP+AWS/l509uIK5a1bSoIVaHz/ZumpHTfHSZBpgrJ+wjfpAOrTHok5Q==}
+
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
 
@@ -3629,7 +3642,7 @@ snapshots:
 
   '@astrojs/compiler@2.10.3': {}
 
-  '@astrojs/db@0.13.1(react@18.3.1)':
+  '@astrojs/db@0.13.2(react@18.3.1)':
     dependencies:
       '@astrojs/studio': 0.1.1
       '@libsql/client': 0.9.0
@@ -3793,6 +3806,11 @@ snapshots:
       - next
       - react
       - supports-color
+
+  '@astrojs/web-vitals@2.0.0(@astrojs/db@0.13.2(react@18.3.1))':
+    dependencies:
+      '@astrojs/db': 0.13.2(react@18.3.1)
+      web-vitals: 4.2.3
 
   '@astrojs/yaml2ts@0.2.1':
     dependencies:
@@ -7315,6 +7333,8 @@ snapshots:
   web-streams-polyfill@3.3.3: {}
 
   web-vitals@3.5.2: {}
+
+  web-vitals@4.2.3: {}
 
   webidl-conversions@3.0.1: {}
 
