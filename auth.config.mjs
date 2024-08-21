@@ -2,6 +2,7 @@ import TwitchProvider from '@auth/core/providers/twitch';
 import { db, eq, User } from "astro:db";
 import { defineConfig } from 'auth-astro';
 import { TWITCH_SCOPES } from '@/lib/twitch';
+import { createOrUpdateUser } from "@/utils/users";
 
 
 export default defineConfig({
@@ -18,6 +19,23 @@ export default defineConfig({
         })
     ],
     callbacks: {
+        jwt: async ({ token, user, account, profile }) => {
+            if (user) {
+                token.user = profile
+                console.log({ user, account, profile });
+                try {
+                    await createOrUpdateUser({
+                        id: profile.sub,
+                        username: user.name.toLowerCase(),
+                        displayName: profile.preferred_username,
+                    })
+
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            return Promise.resolve(token);
+        },
         session: ({ session, token }) => {
             return {
                 ...session,

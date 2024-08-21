@@ -94,4 +94,8 @@ const { title, description, preload, canonical, image, schema } = Astro.props;
 			"Helvetica Neue",
 			sans-serif;
 	}
+
+	body:has(dialog[open]) {
+		@apply overflow-hidden;
+	}
 </style>

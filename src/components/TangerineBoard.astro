@@ -1,0 +1,162 @@
+---
+import Twitch from "@/icons/Twitch.astro";
+import { getUnapprovedTangerineBoard, getApprovedTangerineBoard } from "@/utils/tangerine-board";
+import { getSession } from "auth-astro/server";
+import {CreateTestimonialModal} from "./CreateTestimonialModal";
+import { Toaster } from "@pheralb/toast";
+const session = await getSession(Astro.request);
+import { isAdmin } from "@/utils/users";
+
+const tangBoard = await getApprovedTangerineBoard();
+const unapprovedTangBoard = await getUnapprovedTangerineBoard();
+
+console.log({tangBoard, unapprovedTangBoard});
+
+/* @ts-ignore */
+const admin = isAdmin(session?.user?.name.toLowerCase() as string);
+
+---
+
+
+    <header class="mt-16">
+                <h2
+                    id="tangerine-words"
+                    class="text-3xl w-fit font-atomic lowercase font-thin text-center px-4 transform -skew-y-3 leading-tight relative text-zinc-200 select-none"
+                >
+                    The Tangerine Board 💕
+                </h2>
+            </header>
+            {
+    tangBoard && tangBoard.length > 0 ? (
+            <ul class="flex mt-12 w-full gap-x-4">
+                {
+                    tangBoard.map(({User, TangerineBoard}) => (
+                        <li class="max-w-md w-full">
+                            <article class="bg-black/50 p-4 rounded-md w-full">
+                                <h3 class="text-4xl font-tiza">
+                                    <span class="text-zinc-200">🍊</span> {User.displayName}
+                                </h3>
+                                {TangerineBoard.message}
+                            </article>
+                        </li>
+                    ))
+                }
+            </ul> 
+    ) : (
+        <div class="flex flex-col items-center justify-center w-full">
+            <h2 class="text-lg text-white text-center mt-4">
+            No tangerine board messages yet.
+            </h2>
+        </div>
+    )
+}
+
+{
+    admin && unapprovedTangBoard.length > 0 && (
+        /* List of testimonials to approve */
+        <section 
+            class="mt-16"
+        >
+            <h3 class="text-xl text-white">Unapproved Testimonials</h3>
+            <ul class="flex mt-4 w-full gap-x-4">
+                {
+                    unapprovedTangBoard.map(({User, TangerineBoard}) => (
+                        <li class="max-w-md w-full">
+                            <article class="bg-black/50 p-4 rounded-md w-full">
+                                <h3 class="text-4xl font-tiza">
+                                    <span class="text-zinc-200">🍊</span> {User.displayName}
+                                </h3>
+                                {TangerineBoard.message}
+
+                                <footer class="flex justify-end mt-4">
+                                    <button class="approve-button bg-green-600 text-white px-4 py-2 mr-2 hover:bg-green-700 focus:outline-none" data-id={TangerineBoard.id}>
+                                        Approve
+                                    </button>
+                                   
+                                </footer>
+                            </article>
+                        </li>
+                    ))
+                }
+            </ul>
+        </section>
+    )
+}
+
+<footer class="flex justify-end w-full">
+    {
+        session && session.user ? (
+            <CreateTestimonialModal client:idle/>
+            <Toaster theme="dark" client:only="preact" />
+          
+        ) : (
+            <button 
+                id="login-to-add"
+                class="bg-electric-violet-600 text-white px-4 py-2 rounded-md mt-4 hover:bg-electric-violet-700 focus:outline-none"
+            >
+                <Twitch class="w-6 h-6 inline-block mr-2" />
+                Login to add
+            </button>
+        )
+    }
+</footer>
+
+<style is:global>
+    dialog#create-testimonial-modal {
+        @apply bg-black/75 fixed min-h-dvh w-full inset-0 z-[2000] flex items-center justify-center;
+    }
+</style>
+<script>
+import { $, $$ } from "@/lib/dom-selector";
+import { toast } from "@pheralb/toast";
+import { navigate } from "astro:transitions/client";
+import { signIn } from "auth-astro/client";
+
+document.addEventListener('astro:page-load', () => {
+    const $addMessage = $('#add-message');
+    const $loginToAdd = $('#login-to-add');
+    const $approveButtons = $$('.approve-button');
+    
+
+
+    $addMessage?.addEventListener('click', () => {
+        alert('Add message');
+    });
+
+    $loginToAdd?.addEventListener('click', async () => {
+        await signIn("twitch");
+    }, { once: true });
+    
+    $approveButtons?.forEach($button => {
+        $button.addEventListener('click', async (event) => {
+            const id = $button.getAttribute('data-id');
+            const response = await fetch(`/api/approve-tangerine-board?id=${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                $button?.closest('li')?.remove();
+                toast.success({
+                    text: 'Message approved',
+                    description: 'The message has been approved and is now visible on the Tangerine Board.'
+                });
+
+
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                navigate('/supporters');
+            } else {
+                toast.error({
+                    text: 'Error',
+                    description: 'There was an error approving the message. Please try again later.'
+                });
+            }
+
+        });
+    });
+
+  
+});
+</script>

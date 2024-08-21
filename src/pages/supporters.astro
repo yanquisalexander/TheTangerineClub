@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import DonateWithPix from "@components/DonateWithPix.astro";
 import SectionTitle from "@components/SectionTitle.astro";
+import TangerineBoard from "@components/TangerineBoard.astro";
 ---
 
 <Layout
@@ -20,49 +21,8 @@ import SectionTitle from "@components/SectionTitle.astro";
             </header>
             <DonateWithPix />
 
-            <article class="py-8">
-                <img
-                    src="/images/404.webp"
-                    alt="TTC Bot"
-                    class="w-24 h-24 mx-auto"
-                />
-                <h2 class="text-2xl text-white text-center mt-4">
-                    We are building this page. <br />
-                </h2>
-                <p class="text-gray-300 text-center mt-4">Stay tuned!</p>
-            </article>
-
-            <!--  <header class="mt-16">
-                <h2
-                    id="tangerine-words"
-                    class="text-3xl w-fit font-atomic lowercase font-thin text-center px-4 transform -skew-y-3 leading-tight relative text-zinc-200 select-none"
-                >
-                    The Tangerine Board 💕
-                </h2>
-            </header>
-
-            <ul class="flex mt-24 w-full gap-x-4">
-                <li class="max-w-md w-full">
-                    <article class="bg-black/50 p-4 rounded-md w-full">
-                        <h3 class="text-4xl font-tiza">
-                            <span class="text-zinc-200">🍊</span> Alexitoo_UY
-                        </h3>
-                        This is a very large testimonial text, maybe limited to X
-                        characters to avoid very large texts. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                    </article>
-                </li>
-                <li class="max-w-md w-full">
-                    <article class="bg-black/50 p-4 rounded-md w-full">
-                        <h3 class="text-4xl font-tiza">
-                            <span class="text-zinc-200">🍊</span> Alexitoo_UY
-                        </h3>
-                        This is a very large testimonial text, maybe limited to X
-                        characters to avoid very large texts. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                    </article>
-                </li>
-            </ul> -->
+           
+            <TangerineBoard />
         </div>
     </section>
 </Layout>
