@@ -10,8 +10,6 @@ import { isAdmin } from "@/utils/users";
 const tangBoard = await getApprovedTangerineBoard();
 const unapprovedTangBoard = await getUnapprovedTangerineBoard();
 
-console.log({tangBoard, unapprovedTangBoard});
-
 /* @ts-ignore */
 const admin = isAdmin(session?.user?.name.toLowerCase() as string);
 
@@ -28,7 +26,7 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
             </header>
             {
     tangBoard && tangBoard.length > 0 ? (
-            <ul class="flex mt-12 w-full gap-x-4">
+            <ul class="flex mt-12 w-full gap-x-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {
                     tangBoard.map(({User, TangerineBoard}) => (
                         <li class="max-w-md w-full">
@@ -58,7 +56,7 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
             class="mt-16"
         >
             <h3 class="text-xl text-white">Unapproved Testimonials</h3>
-            <ul class="flex mt-4 w-full gap-x-4">
+            <ul class="mt-4 w-full gap-x-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {
                     unapprovedTangBoard.map(({User, TangerineBoard}) => (
                         <li class="max-w-md w-full">
@@ -99,6 +97,7 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
             </button>
         )
     }
+
 </footer>
 
 <script>
