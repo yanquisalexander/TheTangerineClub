@@ -42,7 +42,7 @@ const { title, description, preload, canonical, image, schema } = Astro.props;
 			<slot />
 		</main>
 		<WeAreOnlineFooter
-			client:idle
+			client:only="preact"
 			transition:persist
 			transition:name="footer-we-are-online"
 		/>
