@@ -53,26 +53,30 @@ if (response.ok) {
         )
     }
 
-    <button
-        id="scroll-down"
-        title="Scroll down"
-        aria-label="Scroll down"
-        class="z-[1000] absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-duration-[2000ms] animate-bouncing animate-iteration-count-infinite"
-    >
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8 text-white animate-bounce"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+    <footer class="z-[1000] absolute bottom-5 w-full flex items-center justify-center">
+
+        <button
+            id="scroll-down"
+            title="Scroll down"
+            aria-label="Scroll down"
+            class="animate-duration-[2000ms] animate-bouncing animate-iteration-count-infinite"
         >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-    </button>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8 text-white animate-bounce"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </button>
+    </footer>
+
 </section>
 
 <style>
