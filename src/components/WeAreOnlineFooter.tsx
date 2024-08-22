@@ -1,49 +1,55 @@
-import { $ } from "@/lib/dom-selector"
-import { useEffect, useState } from "preact/hooks"
+import { $ } from "@/lib/dom-selector";
+import { useEffect, useState } from "preact/hooks";
 
 export const WeAreOnlineFooter = () => {
-    const [isOnline, setIsOnline] = useState(false)
-    const [showFooter, setShowFooter] = useState(false)
-    const [currentPath, setCurrentPath] = useState('')
-    const [closedManually, setClosedManually] = useState(false)
+    const [isOnline, setIsOnline] = useState(false);
+    const [showFooter, setShowFooter] = useState(false);
+    const [currentPath, setCurrentPath] = useState('');
+    const [closedManually, setClosedManually] = useState(false);
 
     useEffect(() => {
-        const $liveNow = $("[data-tangerine-live-now]")
-        if (closedManually) return
+        const $liveNow = $("[data-tangerine-live-now]");
+        if (closedManually) return;
 
-        if ($liveNow !== null) {
-            setIsOnline(true)
+        if ($liveNow) {
+            setIsOnline(true);
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setShowFooter(false)
-                    } else {
-                        setShowFooter(true)
-                    }
-                })
-            }, {
-                threshold: 0.2
-            })
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        setShowFooter(!entry.isIntersecting);
+                    });
+                },
+                { threshold: 0.2 }
+            );
 
+            observer.observe($liveNow);
 
-            observer.observe($liveNow)
+            return () => {
+                observer.disconnect();
+            };
         } else {
             fetch('https://midudev-apis.midudev.workers.dev/uptime/thetangerineclub')
                 .then((res) => res.json())
                 .then(({ online }) => {
-                    setIsOnline(online)
-                    setShowFooter(online)
+                    setIsOnline(online);
+                    setShowFooter(online);
                 })
+                .catch(console.error); // Added error handling
         }
-
-    }, [currentPath])
+    }, [currentPath, closedManually]);
 
     useEffect(() => {
-        document.addEventListener('astro:page-load', () => {
-            setCurrentPath(window.location.pathname)
-        })
-    }, [])
+        const handlePageLoad = () => {
+            setCurrentPath(window.location.pathname);
+        };
+
+        document.addEventListener('astro:page-load', handlePageLoad);
+
+        return () => {
+            document.removeEventListener('astro:page-load', handlePageLoad);
+        };
+    }, []);
 
     return (
         <footer
@@ -60,18 +66,25 @@ export const WeAreOnlineFooter = () => {
                             </g>
                         </svg>
 
-                        We are live now! <a href="https://twitch.tv/thetangerineclub" class="underline" target="_blank">Watch now</a>
+                        We are live now!{" "}
+                        <a href="https://twitch.tv/thetangerineclub" class="underline" target="_blank" rel="noopener noreferrer">
+                            Watch now
+                        </a>
                     </p>
                     <button
                         aria-label="Close live now footer"
-                        onClick={() => { setShowFooter(false); setClosedManually(true) }}
+                        onClick={() => {
+                            setShowFooter(false);
+                            setClosedManually(true);
+                        }}
                         class="absolute top-0 right-0 p-2 text-white size-10"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"></path>
+                        </svg>
                     </button>
                 </>
-            )
-            }
-        </footer >
-    )
-}
+            )}
+        </footer>
+    );
+};
