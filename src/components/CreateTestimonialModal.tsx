@@ -20,7 +20,6 @@ export const CreateTestimonialModal = () => {
             return;
         }
         setLoading(true);
-        console.log({ testimonial });
         const response = await fetch('/api/board.json', {
             method: 'POST',
             body: JSON.stringify({
@@ -59,8 +58,6 @@ export const CreateTestimonialModal = () => {
     }
 
     const openModal = () => {
-        console.log('open modal');
-        console.log($dialog);
         if ($dialog) {
             $dialog.showModal();
         }
