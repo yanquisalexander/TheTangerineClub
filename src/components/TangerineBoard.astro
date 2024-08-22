@@ -86,7 +86,7 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
 <footer class="flex justify-end w-full">
     {
         session && session.user ? (
-            <CreateTestimonialModal client:idle/>
+            <CreateTestimonialModal client:only="preact"/>
             <Toaster theme="dark" client:only="preact" />
           
         ) : (
@@ -101,11 +101,6 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
     }
 </footer>
 
-<style is:global>
-    dialog#create-testimonial-modal {
-        @apply bg-black/75 fixed min-h-dvh w-full inset-0 z-[2000] flex items-center justify-center;
-    }
-</style>
 <script>
 import { $, $$ } from "@/lib/dom-selector";
 import { toast } from "@pheralb/toast";

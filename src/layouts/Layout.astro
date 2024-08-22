@@ -99,3 +99,17 @@ const { title, description, preload, canonical, image, schema } = Astro.props;
 		@apply overflow-hidden;
 	}
 </style>
+
+<style is:global>
+	dialog::backdrop {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	
+	dialog[open] {
+		@apply translate-y-0 transition-all duration-500 ease-in-out opacity-100;
+		@starting-style {
+			transform: translateY(-5%);
+			opacity: 0;
+		}
+	}
+</style>
