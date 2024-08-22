@@ -101,6 +101,12 @@ const { title, description, preload, canonical, image, schema } = Astro.props;
 </style>
 
 <style is:global>
+	dialog {
+		opacity: 0;
+		transform: translateY(-5%);
+		transition: all 0.3s ease-in-out,
+					display 0.3s ease allow-discrete;
+	}
 	dialog::backdrop {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
