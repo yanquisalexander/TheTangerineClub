@@ -15,6 +15,26 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
 
 ---
 
+{
+    !session && (
+    <article class="bg-purple-500/30 my-8  border-purple-500 border-2 w-full text-white font-semibold px-4 py-2">
+                <h2 class="text-lg">
+                    ¡Get your TTC Member Card!
+                    <img
+                        src="/images/emotes/ttcNoted.webp"
+                        alt="ttcNoted emote"
+                        class="inline-block w-6 h-6"
+                    />
+                </h2>
+                <p class="text-sm">
+                    Get a beautiful member card with your name and customisable stickers.<br />
+                    Login to get yours!
+                </p>
+                
+            </article>
+    )
+}
+
 
     <header class="mt-16">
                 <h2
@@ -26,7 +46,7 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
             </header>
             {
     tangBoard && tangBoard.length > 0 ? (
-            <ul class="flex mt-12 w-full gap-x-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <ul class="mt-12 w-full gap-x-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {
                     tangBoard.map(({User, TangerineBoard}) => (
                         <li class="max-w-md w-full">
@@ -46,6 +66,36 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
             No tangerine board messages yet.
             </h2>
         </div>
+    )
+}
+
+<footer class="flex justify-end w-full">
+    {
+        session && session.user ? (
+            <CreateTestimonialModal client:only="preact"/>
+            <Toaster theme="dark" client:only="preact" />
+          
+        ) : (
+            <button 
+                id="login-to-add"
+                class="bg-electric-violet-600 text-white font-semibold px-4 py-2  mt-4 hover:bg-electric-violet-700 focus:outline-none"
+            >
+                <Twitch class="w-6 h-6 inline-block mr-2" />
+                Login to add a message
+            </button>
+        )
+    }
+
+</footer>
+
+
+{
+    session && (
+        <footer class="flex justify-end w-full">
+            <a class="bg-electric-violet-600 text-white font-semibold px-4 py-2 mt-4 hover:bg-electric-violet-700 focus:outline-none" href="/member-card">
+                Manage my member card   
+            </a>
+        </footer>
     )
 }
 
@@ -80,25 +130,6 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
         </section>
     )
 }
-
-<footer class="flex justify-end w-full">
-    {
-        session && session.user ? (
-            <CreateTestimonialModal client:only="preact"/>
-            <Toaster theme="dark" client:only="preact" />
-          
-        ) : (
-            <button 
-                id="login-to-add"
-                class="bg-electric-violet-600 text-white px-4 py-2 rounded-md mt-4 hover:bg-electric-violet-700 focus:outline-none"
-            >
-                <Twitch class="w-6 h-6 inline-block mr-2" />
-                Login to add a message
-            </button>
-        )
-    }
-
-</footer>
 
 <script>
 import { $, $$ } from "@/lib/dom-selector";

@@ -66,7 +66,7 @@ export const CreateTestimonialModal = () => {
 
     return (
         <div>
-            <button onClick={openModal} class="bg-[#ff8e00] font-semibold text-black px-4 py-2 rounded-md mt-4 hover:bg-white hover:text-blak focus:outline-none">
+            <button onClick={openModal} class="bg-[#ff8e00] font-semibold text-black px-4 py-2 mt-4 hover:bg-white hover:text-blak focus:outline-none">
                 Write on the board
             </button>
 
