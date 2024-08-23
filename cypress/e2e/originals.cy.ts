@@ -29,8 +29,11 @@ it('user can navigate to music page by clicking on music card (from /originals)'
 
     MUSICS.forEach((music) => {
         cy.get(`a[href="/originals/${music.id}"]`).click();
+        cy.wait(1000);
         cy.url().should('include', `/originals/${music.id}`);
+        cy.wait(1000);
         cy.go('back');
+        cy.wait(2000);
     });
 })
 
