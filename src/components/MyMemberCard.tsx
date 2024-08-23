@@ -2,7 +2,10 @@ import type { Session } from "@auth/core/types";
 import { Container3D } from "./Container3D";
 import { MemberCard } from "./MemberCard";
 import { STICKERS } from "@/consts/Stickers";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
+import { DownloadIcon, LoaderIcon } from "lucide-preact";
+import { toPng } from "html-to-image";
+import { $ } from "@/lib/dom-selector";
 
 export const MyMemberCard = ({ session, stickers = [], tier }: { session: Session, stickers: string[], tier: number | null }) => {
     const [selectedStickers, setSelectedStickers] = useState(() => {
@@ -15,8 +18,35 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
             list: stickersList,
         }
     })
+    const [generating, setGenerating] = useState(false)
+
+    async function dataUrlToFile(dataUrl: string, fileName: string): Promise<File> {
+        const res = await fetch(dataUrl)
+        const blob = await res.blob()
+        return new File([blob], fileName, { type: 'image/jpg' })
+    }
+
+    async function generateImage() {
+        const $saveButton = $('.save-button')
+        const $memberCard = $('#member-card')
+        if ($memberCard) {
+            setGenerating(true)
+            const dataUrl = await toPng($memberCard, {
+                quality: 0.8
+            })
+
+            const file = await dataUrlToFile(dataUrl, 'card.png')
+            const filename = 'card.png'
+
+            // Set href and download attributes
+            $saveButton && $saveButton.setAttribute('href', URL.createObjectURL(file))
+            $saveButton && $saveButton.setAttribute('download', filename)
+            setGenerating(false)
+        }
+    }
 
     const updateStickers = async (newStickers: string[]) => {
+        generateImage()
         const stickersList = new Array(3).fill(null)
         newStickers.forEach((sticker, index) => {
             stickersList[index] = sticker
@@ -69,12 +99,32 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
         updateStickers(newStickers)
     }
 
+    useEffect(() => {
+        generateImage()
+        // Generate image on initial render
+    }, [])
+
 
 
     return (
         <>
             <div>
                 <div class="w-auto">
+                    <div aria-disabled className='w-[732px] -mb-[366px] relative -left-[200vw]'>
+                        <div id='member-card' className='border-[16px] border-transparent'>
+                            <Container3D>
+                                <MemberCard
+                                    className="max-w-[400px] md:max-w-[700px] mx-auto"
+                                    number={parseInt(session?.user?.id as string)}
+                                    selectedStickers={selectedStickers}
+                                    user={{
+                                        avatar: session?.user?.image,
+                                        username: session?.user?.name,
+                                    }}
+                                />
+                            </Container3D>
+                        </div>
+                    </div>
                     <Container3D>
                         <MemberCard
                             className="max-w-[400px] md:max-w-[700px] mx-auto"
@@ -90,72 +140,17 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
                     <div class="w-2/3 mx-auto h-6 rounded-[50%] mt-6 transition-colors duration-300 blur-xl bg-[#e98354]"></div>
                 </div>
                 <div class="flex flex-col items-center w-full px-8 mt-16 mb-16 gap-x-10 gap-y-4 lg:mb-0 lg:mt-4 md:flex-row">
-                    <button
-                        type="button"
-                        class="flex items-center cursor-pointer gap-2 rounded-lg text-white px-3 py-[10px] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-midu-primary/40 bg-[#121226] hover:bg-[#1A1A2E] hover:border-midu-primary/60"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4 mr-2"
-                            width="1200"
-                            height="1227"
-                            fill="none"
-                            viewBox="0 0 1200 1227"
-                        >
-                            <path
-                                fill="#fff"
-                                d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
-                            ></path>
-                        </svg>
-                        Compartir
-                    </button>
+
                     <a
                         download=""
-                        class="flex items-center cursor-pointer gap-2 rounded-lg text-white px-3 py-[10px] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-midu-primary/40 bg-[#121226] hover:bg-[#1A1A2E] hover:border-midu-primary/60"
+                        disabled={generating}
+                        class="save-button flex items-center cursor-pointer gap-2 rounded-lg text-white px-3 py-[10px] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-midu-primary/40 bg-[#121226] hover:bg-[#1A1A2E] hover:border-midu-primary/60"
                     >
-                        <svg
-                            width="30"
-                            height="31"
-                            viewBox="0 0 30 31"
-                            fill="none"
-                            class="w-6 h-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g clip-path="url(#clip0_90_2554)">
-                                <path
-                                    d="M5 21.75V24.25C5 24.913 5.26339 25.5489 5.73223 26.0178C6.20107 26.4866 6.83696 26.75 7.5 26.75H22.5C23.163 26.75 23.7989 26.4866 24.2678 26.0178C24.7366 25.5489 25 24.913 25 24.25V21.75"
-                                    stroke="white"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                ></path>
-                                <path
-                                    d="M8.75 14.25L15 20.5L21.25 14.25"
-                                    stroke="white"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                ></path>
-                                <path
-                                    d="M15 5.5V20.5"
-                                    stroke="white"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                ></path>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_90_2554">
-                                    <rect
-                                        width="30"
-                                        height="30"
-                                        fill="white"
-                                        transform="translate(0 0.5)"
-                                    ></rect>
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        Guardar
+                        {
+                            generating ? <LoaderIcon class="w-6 h-6 animate-spin" /> : <DownloadIcon class="w-6 h-6" />
+                        }
+
+                        {generating ? 'Generating...' : 'Download'}
                     </a>
                 </div>
             </div>
