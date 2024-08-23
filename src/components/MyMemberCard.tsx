@@ -20,6 +20,9 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
     })
     const [generating, setGenerating] = useState(false)
 
+    const username = session?.user?.name as string
+    const avatar = session?.user?.image as string
+
     async function dataUrlToFile(dataUrl: string, fileName: string): Promise<File> {
         const res = await fetch(dataUrl)
         const blob = await res.blob()
@@ -118,8 +121,8 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
                                     number={parseInt(session?.user?.id as string)}
                                     selectedStickers={selectedStickers}
                                     user={{
-                                        avatar: session?.user?.image,
-                                        username: session?.user?.name,
+                                        avatar,
+                                        username,
                                     }}
                                 />
                             </Container3D>
@@ -132,8 +135,8 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
                             selectedStickers={selectedStickers}
                             handleRemoveSticker={handleRemoveSticker}
                             user={{
-                                avatar: session?.user?.image,
-                                username: session?.user?.name,
+                                avatar,
+                                username,
                             }}
                         />
                     </Container3D>
