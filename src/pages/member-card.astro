@@ -57,6 +57,10 @@ const computedTitle = isSharedMemberCard ? `Member card of ${dbMemberCard.User.d
 
         {
             isSharedMemberCard && dbMemberCard && (
+                <div class="">
+                    <header class="mb-8">
+                        <h1 class="text-4xl font-bold text-center">Member Card of {dbMemberCard.User.displayName}</h1>
+                    </header>
                 <SharedMemberCard
                     number={parseInt(memberId as string)}
                     stickers={dbMemberCard.MemberCards.stickers}
@@ -64,6 +68,7 @@ const computedTitle = isSharedMemberCard ? `Member card of ${dbMemberCard.User.d
                     avatar={dbMemberCard.User.avatar}
                     client:only
                     />
+                </div>
             )
         }
     </section>

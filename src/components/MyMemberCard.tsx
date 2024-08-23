@@ -3,7 +3,7 @@ import { Container3D } from "./Container3D";
 import { MemberCard } from "./MemberCard";
 import { STICKERS } from "@/consts/Stickers";
 import { useEffect, useState } from "preact/hooks";
-import { DownloadIcon, LoaderIcon } from "lucide-preact";
+import { DownloadIcon, LoaderIcon, ShareIcon } from "lucide-preact";
 import { toPng } from "html-to-image";
 import { $ } from "@/lib/dom-selector";
 
@@ -19,6 +19,24 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
         }
     })
     const [generating, setGenerating] = useState(false)
+
+    const shareMyCard = () => {
+        const message = `Hey! Check out my member card on The Tangerine Club!
+
+        https://www.thetangerineclub.net/member-card?memberId=${session?.user?.id}
+        `.trim()
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'My Member Card',
+                text: message,
+                url: `https://www.thetangerineclub.net/member-card?memberId=${session?.user?.id}`
+            })
+        } else {
+            navigator.clipboard.writeText(message)
+            alert('Copied to clipboard!')
+        }
+    }
 
     const username = session?.user?.name as string
     const avatar = session?.user?.image as string
@@ -147,7 +165,7 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
                     <a
                         download=""
                         disabled={generating}
-                        class="save-button flex items-center cursor-pointer gap-2 rounded-lg text-white px-3 py-[10px] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-midu-primary/40 bg-[#121226] hover:bg-[#1A1A2E] hover:border-midu-primary/60"
+                        class="save-button flex items-center cursor-pointer gap-2 rounded-lg text-white px-3 py-[10px] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-white/40 bg-[#121226] hover:bg-[#1A1A2E] hover:border-white/60"
                     >
                         {
                             generating ? <LoaderIcon class="w-6 h-6 animate-spin" /> : <DownloadIcon class="w-6 h-6" />
@@ -155,6 +173,14 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
 
                         {generating ? 'Generating...' : 'Download'}
                     </a>
+
+                    <button
+                        onClick={shareMyCard}
+                        class="flex items-center gap-2 rounded-lg text-white px-3 py-[10px] transition-all duration-300 border border-white/40 bg-[#121226] hover:bg-[#1A1A2E] hover:border-white/60"
+                    >
+                        <ShareIcon class="w-6 h-6" />
+                        Share
+                    </button>
                 </div>
             </div>
             <div class="w-full md:order-none">
