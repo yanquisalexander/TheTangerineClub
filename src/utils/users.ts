@@ -48,11 +48,12 @@ export const updateStickers = async (memberId: number, stickers: string[]) => {
     try {
         await db.insert(MemberCards).values({
             userId: memberId.toString(),
-            stickers
+            stickers,
         }).onConflictDoUpdate({
             target: [MemberCards.userId],
             set: {
-                stickers
+                stickers,
+                updatedAt: new Date()
             }
         })
     } catch (error) {
