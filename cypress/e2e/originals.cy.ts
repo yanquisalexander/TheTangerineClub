@@ -32,7 +32,7 @@ it('user can navigate to music page by clicking on music card (from /originals)'
         cy.wait(1000);
         cy.url().should('include', `/originals/${music.id}`);
         cy.wait(1000);
-        cy.go('back');
+        cy.visit('/originals');
         cy.wait(2000);
     });
 })
