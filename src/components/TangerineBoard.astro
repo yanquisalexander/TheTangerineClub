@@ -46,7 +46,7 @@ const admin = isAdmin(session?.user?.name.toLowerCase() as string);
             </header>
             {
     tangBoard && tangBoard.length > 0 ? (
-            <ul class="mt-12 w-full gap-x-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <ul class="mt-12 w-full gap-x-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4">
                 {
                     tangBoard.map(({User, TangerineBoard}) => (
                         <li class="max-w-md w-full">
