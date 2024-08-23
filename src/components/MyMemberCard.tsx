@@ -11,7 +11,7 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
             stickersList[index] = sticker
         })
         return {
-            limit: tier,
+            limit: tier === null ? 0 : tier,
             list: stickersList,
         }
     })
