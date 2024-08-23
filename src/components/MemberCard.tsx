@@ -27,8 +27,6 @@ export const MemberCard = ({
     const { username = 'Unknown User', avatar = '' } = user;
     const memberCardNumber = `#${number != null ? number.toString().padStart(5, "0") : ""}`;
 
-    console.log('MemberCard', { number, user, className, handleRemoveSticker, selectedStickers });
-
     return (
         <div className={cn("block h-full overflow-hidden rounded-[60px] border p-5 aspect-none w-full md:aspect-[2/1] border-white/30 bg-white/10 transition duration-500 ease-in-out", className)}>
             <div className="relative h-full overflow-hidden border rounded-[40px] member-card-gradient-bg grid md:flex border-white/80 transition duration-500 ease-in-out">

@@ -4,5 +4,8 @@ export const STICKERS = [
     },
     {
         id: 'ttcMate'
+    },
+    {
+        id: 'ttcHiFi'
     }
 ]

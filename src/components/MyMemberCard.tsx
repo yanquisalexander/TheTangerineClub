@@ -20,6 +20,8 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
     })
     const [generating, setGenerating] = useState(false)
 
+    console.log({ session, stickers, tier, selectedStickers })
+
     const shareMyCard = () => {
         const message = `Hey! Check out my member card on The Tangerine Club!
 
@@ -93,13 +95,13 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
 
     const handleSelectSticker = async (selectedSticker: string) => {
         const newStickers = selectedStickers.list
-        // If sticker is already selected, return
+        const emptyIndex = newStickers.indexOf(null)
+        if (emptyIndex === -1) return
+
         if (newStickers.includes(selectedSticker)) return
-        // Find the first empty slot
-        const index = newStickers.findIndex((sticker) => sticker === null)
-        // If no empty slot is found, return
-        if (index === -1) return
-        newStickers[index] = selectedSticker
+        if (selectedStickers.limit <= newStickers.filter(Boolean).length) return
+
+        newStickers[emptyIndex] = selectedSticker
         setSelectedStickers({
             limit: selectedStickers.limit,
             list: newStickers,
