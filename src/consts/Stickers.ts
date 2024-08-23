@@ -7,5 +7,8 @@ export const STICKERS = [
     },
     {
         id: 'ttcHiFi'
-    }
+    },
+    {
+        id: 'ttcUni'
+    },
 ]
