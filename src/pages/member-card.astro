@@ -1,0 +1,47 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import type { Session } from "@auth/core/types";
+import { Container3D } from "@components/Container3D";
+import { getSession } from "auth-astro/server";
+import { MemberCard } from "@components/MemberCard";
+import { MyMemberCard } from "@components/MyMemberCard";
+import { getMemberCardData } from "@/utils/users";
+
+const { memberId } = Astro.params
+
+const isSharedMemberCard = memberId !== undefined
+
+let session: Session | null = null
+let stickers : string[] = []
+
+if (!isSharedMemberCard) {
+    session = await getSession(Astro.request)
+    if(!session) {
+        return new Response(null, { status: 404 })
+    }
+
+    let memberCard = await getMemberCardData(parseInt(session?.user?.id as string))
+    stickers = memberCard?.stickers as string[]
+}
+
+
+---
+
+<Layout
+    title="Member Card - The Tangerine Club"
+    description="">
+
+    <section class="max-w-screen-xl m-auto mt-40 pb-20 gap-8 px-4 flex flex-col lg:grid grid-cols-[auto_1fr] items-center">
+    
+        {
+            session && (
+                    <MyMemberCard session={session} 
+                    stickers={stickers}
+                    client:only/>
+
+
+            )
+        }
+    </section>
+
+</Layout>

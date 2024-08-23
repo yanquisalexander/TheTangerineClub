@@ -1,6 +1,6 @@
 import { column, defineDb, defineTable, NOW } from 'astro:db';
 
-export const User = defineTable({
+const User = defineTable({
   columns: {
     id: column.text({ primaryKey: true, unique: true }),
     username: column.text({ unique: true }),
@@ -9,7 +9,7 @@ export const User = defineTable({
   }
 })
 
-export const TangerineBoard = defineTable({
+const TangerineBoard = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
     userId: column.text({ unique: true, references: () => User.columns.id }),
@@ -20,10 +20,21 @@ export const TangerineBoard = defineTable({
   }
 })
 
+const MemberCards = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    userId: column.text({ unique: true, references: () => User.columns.id }),
+    stickers: column.json(),
+    createdAt: column.date({ default: NOW }),
+    updatedAt: column.date({ default: NOW }),
+  }
+})
+
 // https://astro.build/db/config
 export default defineDb({
   tables: {
     User,
     TangerineBoard,
+    MemberCards,
   }
 });

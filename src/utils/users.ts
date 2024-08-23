@@ -1,4 +1,4 @@
-import { db, User } from "astro:db"
+import { db, MemberCards, User, eq } from "astro:db"
 
 export const ADMINS = import.meta.env.ADMIN_USERNAMES?.split(',') || []
 
@@ -21,6 +21,32 @@ export const createOrUpdateUser = async ({ id, username, displayName, twitchTier
                 username,
                 displayName,
                 twitchTier
+            }
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getMemberCardData = async (memberId: number) => {
+    const card = await db.select().from(MemberCards).where(eq(MemberCards.userId, memberId.toString())).limit(1)
+
+    if (card.length === 0) {
+        return null
+    }
+
+    return card[0]
+}
+
+export const updateStickers = async (memberId: number, stickers: string[]) => {
+    try {
+        await db.insert(MemberCards).values({
+            userId: memberId.toString(),
+            stickers
+        }).onConflictDoUpdate({
+            target: [MemberCards.userId],
+            set: {
+                stickers
             }
         })
     } catch (error) {
