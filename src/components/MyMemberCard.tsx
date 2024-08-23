@@ -114,6 +114,18 @@ export const MyMemberCard = ({ session, stickers = [], tier }: { session: Sessio
     const handleRemoveSticker = async (index: number) => {
         const newStickers = selectedStickers.list
         newStickers[index] = null
+
+        // Sometimes, user downgrades their tier and the limit is reduced
+        // This cause a bug where the user can't remove or add stickers
+        // Remove all last stickers if the limit is reduced
+        if (selectedStickers.limit < newStickers.filter(Boolean).length) {
+            for (let i = newStickers.length - 1; i >= 0; i--) {
+                if (newStickers[i] !== null) {
+                    newStickers[i] = null
+                    break
+                }
+            }
+        }
         setSelectedStickers({
             limit: selectedStickers.limit,
             list: newStickers,
