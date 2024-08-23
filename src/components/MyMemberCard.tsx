@@ -4,9 +4,7 @@ import { MemberCard } from "./MemberCard";
 import { STICKERS } from "@/consts/Stickers";
 import { useState } from "preact/hooks";
 
-export const MyMemberCard = ({ session, stickers = [] }: { session: Session, stickers: string[] }) => {
-    const [tier, setTier] = useState(3);
-
+export const MyMemberCard = ({ session, stickers = [], tier }: { session: Session, stickers: string[], tier: number | null }) => {
     const [selectedStickers, setSelectedStickers] = useState(() => {
         const stickersList = new Array(3).fill(null)
         stickers.forEach((sticker, index) => {

@@ -5,7 +5,7 @@ import { Container3D } from "@components/Container3D";
 import { getSession } from "auth-astro/server";
 import { MemberCard as MemberCardComponent } from "@components/MemberCard";
 import { MyMemberCard } from "@components/MyMemberCard";
-import { getMemberCardData } from "@/utils/users";
+import { getMemberCardData, getUserTier } from "@/utils/users";
 
 const { memberId } = Astro.params
 
@@ -13,6 +13,7 @@ const isSharedMemberCard = memberId !== undefined
 
 let session: Session | null = null
 let stickers : string[] = []
+let tier: number | null = null
 
 if (!isSharedMemberCard) {
     session = await getSession(Astro.request)
@@ -21,6 +22,7 @@ if (!isSharedMemberCard) {
     }
 
     let dbMemberCard = await getMemberCardData(parseInt(session?.user?.id as string))
+    tier = await getUserTier(session?.user?.id as string)
     stickers = dbMemberCard?.stickers as string[]
 }
 
@@ -37,6 +39,7 @@ if (!isSharedMemberCard) {
             session && (
                     <MyMemberCard session={session} 
                     stickers={stickers}
+                    tier={tier}
                     client:only/>
 
 
