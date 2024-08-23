@@ -53,3 +53,13 @@ export const updateStickers = async (memberId: number, stickers: string[]) => {
         console.error(error)
     }
 }
+
+export const getUserTier = async (userId: string) => {
+    const user = await db.select({ twitchTier: User.twitchTier }).from(User).where(eq(User.id, userId)).limit(1)
+
+    if (user.length === 0) {
+        return null
+    }
+
+    return user[0].twitchTier
+}
