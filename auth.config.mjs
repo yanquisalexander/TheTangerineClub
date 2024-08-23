@@ -29,6 +29,7 @@ export default defineConfig({
                         id: profile.sub,
                         username: user.name.toLowerCase(),
                         displayName: profile.preferred_username,
+                        avatar: profile.picture,
                         twitchTier: tier,
                     })
 

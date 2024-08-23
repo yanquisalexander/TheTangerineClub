@@ -8,18 +8,20 @@ export const isAdmin = (username: string) => ADMINS.includes(username)
     Admins can approve messages on the Tangerine Board
 */
 
-export const createOrUpdateUser = async ({ id, username, displayName, twitchTier }: { id: string, username: string, displayName: string, twitchTier: number }) => {
+export const createOrUpdateUser = async ({ id, username, displayName, twitchTier, avatar }: { id: string, username: string, displayName: string, twitchTier: number, avatar: string }) => {
     try {
         await db.insert(User).values({
             id,
             username,
             displayName,
+            avatar,
             twitchTier
         }).onConflictDoUpdate({
             target: [User.id],
             set: {
                 username,
                 displayName,
+                avatar,
                 twitchTier
             }
         })
@@ -29,7 +31,11 @@ export const createOrUpdateUser = async ({ id, username, displayName, twitchTier
 }
 
 export const getMemberCardData = async (memberId: number) => {
-    const card = await db.select().from(MemberCards).where(eq(MemberCards.userId, memberId.toString())).limit(1)
+    const card = await db.select()
+        .from(MemberCards)
+        .where(eq(MemberCards.userId, memberId.toString()))
+        .innerJoin(User, eq(User.id, MemberCards.userId))
+        .limit(1)
 
     if (card.length === 0) {
         return null

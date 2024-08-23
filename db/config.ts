@@ -5,6 +5,7 @@ const User = defineTable({
     id: column.text({ primaryKey: true, unique: true }),
     username: column.text({ unique: true }),
     displayName: column.text(),
+    avatar: column.text({ optional: true }),
     twitchTier: column.number({ optional: true }),
   }
 })
