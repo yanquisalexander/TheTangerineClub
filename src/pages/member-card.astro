@@ -20,8 +20,8 @@ if (!isSharedMemberCard) {
         return new Response(null, { status: 404 })
     }
 
-    let memberCard = await getMemberCardData(parseInt(session?.user?.id as string))
-    stickers = memberCard?.stickers as string[]
+    let dbMemberCard = await getMemberCardData(parseInt(session?.user?.id as string))
+    stickers = dbMemberCard?.stickers as string[]
 }
 
 
