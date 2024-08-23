@@ -24,14 +24,14 @@ if (!isSharedMemberCard) {
 
     dbMemberCard = await getMemberCardData(parseInt(session?.user?.id as string))
     tier = await getUserTier(session?.user?.id as string)
-    stickers = dbMemberCard?.stickers as string[]
+    stickers = dbMemberCard?.MemberCards.stickers as string[]
 } else {
     dbMemberCard = await getMemberCardData(parseInt(memberId as string))
     if (!dbMemberCard) {
         return new Response(null, { status: 404 })
     }
     tier = await getUserTier(memberId as string)
-    stickers = dbMemberCard?.stickers as string[]
+    stickers = dbMemberCard?.MemberCards.stickers as string[]
 }
 
 const computedTitle = isSharedMemberCard ? `Member card of ${dbMemberCard.User.displayName} - The Tangerine Club` : "Member Card - The Tangerine Club"
@@ -63,7 +63,7 @@ const computedTitle = isSharedMemberCard ? `Member card of ${dbMemberCard.User.d
                     </header>
                 <SharedMemberCard
                     number={parseInt(memberId as string)}
-                    stickers={dbMemberCard.MemberCards.stickers}
+                    stickers={stickers}
                     username={dbMemberCard.User.displayName}
                     avatar={dbMemberCard.User.avatar}
                     client:only
