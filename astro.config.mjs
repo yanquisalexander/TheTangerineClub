@@ -23,5 +23,6 @@ export default defineConfig({
   site: "https://www.thetangerineclub.net/",
   experimental: {
     serverIslands: true
-  }
+  },
+  trailingSlash: 'never'
 });
