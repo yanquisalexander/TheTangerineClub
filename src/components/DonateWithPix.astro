@@ -1,7 +1,14 @@
 ---
 import ExternalLink from "@/icons/ExternalLink.astro";
 
-const country = Astro.request.headers.get("X-Vercel-IP-Country") ?? "BR";
+const countryHeaders = [
+    "X-Vercel-IP-Country",
+    "CF-IPCountry",
+]
+const country = countryHeaders
+    .map((header) => Astro.request.headers.get(header))
+    .find((country) => country) ?? "XX";
+
 
 const discardedPixBannerAt = Astro.cookies.get("discardedPixBannerAt");
 
