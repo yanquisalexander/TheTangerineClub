@@ -1,45 +1,43 @@
 ---
 import ExternalLink from "@/icons/ExternalLink.astro";
 
-const countryHeaders = [
-    "X-Vercel-IP-Country",
-    "CF-IPCountry",
-]
+// Define the headers to check for the user's country
+const countryHeaders = ["X-Vercel-IP-Country", "CF-IPCountry"];
+
+// Get the country from the headers or default to "XX"
 const country = countryHeaders
-    .map((header) => Astro.request.headers.get(header))
-    .find((country) => country) ?? "XX";
+    .map(header => Astro.request.headers.get(header))
+    .find(Boolean) ?? "XX";
 
-
+// Get the discarded banner timestamp from cookies
 const discardedPixBannerAt = Astro.cookies.get("discardedPixBannerAt");
 
-const showPixBanner =
-    (country === "BR" && !discardedPixBannerAt) ||
-    Date.now() - Number(discardedPixBannerAt?.number) > 2 * 24 * 60 * 60 * 1000;
+// Check if the banner should be shown
+const bannerExpired = discardedPixBannerAt && (Date.now() - Number(discardedPixBannerAt)) > (2 * 24 * 60 * 60 * 1000);
+const showPixBanner = country === "BR" && (!discardedPixBannerAt || bannerExpired);
 ---
 
-{
-    showPixBanner && (
-        <article class="bg-orange-500/30 my-8  border-orange-500 border-2 w-full text-white font-semibold px-4 py-2">
-            <h2 class="text-lg">
-                Pix na tela
-                <img
-                    src="/images/emotes/ttcNoted.webp"
-                    alt="ttcNoted emote"
-                    class="inline-block w-6 h-6"
-                />
-            </h2>
-            <p class="text-sm">
-                Contribua com o nosso trabalho através do Pix através do link
-                abaixo, sua mensagem será exibida na tela durante a live.
-            </p>
-            <a
-                href="https://livepix.gg/thetangerineclub"
-                target="_blank"
-                class="bg-white text-orange-500 font-semibold px-4 py-2 mt-3 inline-block"
-            >
-                <ExternalLink class="inline-block w-4 h-4" />
-                Contribuir com Pix
-            </a>
-        </article>
-    )
-}
+{showPixBanner && (
+    <article class="bg-orange-500/30 my-8 border-orange-500 border-2 w-full text-white font-semibold px-4 py-2">
+        <h2 class="text-lg">
+            Pix na tela
+            <img
+                src="/images/emotes/ttcNoted.webp"
+                alt="ttcNoted emote"
+                class="inline-block w-6 h-6"
+            />
+        </h2>
+        <p class="text-sm">
+            Contribua com o nosso trabalho através do Pix através do link
+            abaixo, sua mensagem será exibida na tela durante a live.
+        </p>
+        <a
+            href="https://livepix.gg/thetangerineclub"
+            target="_blank"
+            class="bg-white text-orange-500 font-semibold px-4 py-2 mt-3 inline-block"
+        >
+            <ExternalLink class="inline-block w-4 h-4" />
+            Contribuir com Pix
+        </a>
+    </article>
+)}
